@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="VerifyCodeButton">
+        <!--默认背景-->
+        <attr name="android:background" />
+        <!--点击后背景-->
+        <attr name="clickedBackground" format="reference" />
+        <!--倒计时间-->
+        <attr name="waitedBackground" format="reference"/>
+        <!--等待时间-->
+        <attr name="countdownTime" format="integer" />
+        <!--倒计时间后提示文字-->
+        <attr name="countdownText" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="LikeButton">
+        <attr name="icon_type" format="string" />
+        <attr name="icon_size" format="dimension|reference"/>
+        <attr name="like_drawable" format="reference" />
+        <attr name="unlike_drawable" format="reference" />
+        <attr name="dots_primary_color" format="color|reference" />
+        <attr name="dots_secondary_color" format="color|reference" />
+        <attr name="circle_start_color" format="color|reference" />
+        <attr name="circle_end_color" format="color|reference" />
+        <attr name="liked" format="boolean"/>
+    </declare-styleable>
+</resources>
