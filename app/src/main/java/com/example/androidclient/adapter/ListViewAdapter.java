@@ -13,6 +13,8 @@ import com.example.androidclient.R;
 
 import java.util.List;
 
+import me.codeboy.android.aligntextview.AlignTextView;
+
 public abstract class ListViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     protected final List<InterviewBean> mData;
@@ -56,12 +58,16 @@ public abstract class ListViewAdapter extends RecyclerView.Adapter<RecyclerView.
 
     public class InnerHolder extends RecyclerView.ViewHolder{
 
-        private TextView tempeture;
+        private TextView name;
+        private TextView time;
+        private AlignTextView content;
         private int mPosition;
 
         public InnerHolder(View itemView){
             super(itemView);
-            tempeture=itemView.findViewById(R.id.name);
+            name=itemView.findViewById(R.id.listview_name);
+            time=itemView.findViewById(R.id.listview_time);
+            content=itemView.findViewById(R.id.listview_content);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -75,12 +81,18 @@ public abstract class ListViewAdapter extends RecyclerView.Adapter<RecyclerView.
         }
 
         public void setData(InterviewBean interviewBean){
-            tempeture.setText(interviewBean.name);
+            String[] contents=interviewBean.getAll();
+            name.setText(contents[0]);
+            time.setText(contents[1]);
+            content.setText(contents[2]);
         }
 
         public void setData(InterviewBean interviewBean,int position){
             this.mPosition=position;
-            tempeture.setText(interviewBean.name);
+            String[] contents=interviewBean.getAll();
+            name.setText(contents[0]);
+            time.setText(contents[1]);
+            content.setText(contents[2]);
         }
 
     }

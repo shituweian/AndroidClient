@@ -18,6 +18,7 @@ import com.example.androidclient.Bean.InterviewBean;
 import com.example.androidclient.R;
 import com.example.androidclient.adapter.ListViewAdapter;
 import com.example.androidclient.adapter.LoadMoreAdapter;
+import com.example.androidclient.comment.interviews;
 import com.example.androidclient.databinding.FragmentHomeBinding;
 
 import java.util.ArrayList;
@@ -66,7 +67,9 @@ public class HomeFragment extends Fragment {
             @Override
             public void onRefresh() {
                 InterviewBean data=new InterviewBean();
-                data.name="gsw";
+                data.setName("Gao shiwei");
+                data.setTime("27 July");
+                data.setContent("I love U guys");
                 mData.add(0,data);
                 new Handler().postDelayed(new Runnable() {
                     @Override
@@ -84,8 +87,9 @@ public class HomeFragment extends Fragment {
 
         for(int i=0;i<10;i++){
             InterviewBean interview=new InterviewBean();
-            interview.name=i+"dwa";
-            interview.time="dwa"+i;
+            interview.setName("user "+i);
+            interview.setTime("27 July");
+            interview.setContent(interviews.content[i]);
             mData.add(interview);
         }
 
@@ -117,7 +121,9 @@ public class HomeFragment extends Fragment {
 
                             if(random.nextInt()%2==0){
                                 InterviewBean data=new InterviewBean();
-                                data.name="GaoShiwei";
+                                data.setName("Gao shiwei");
+                                data.setTime("27 July");
+                                data.setContent("I love U guys");
                                 mData.add(data);
 
                                 adapter.notifyDataSetChanged();
