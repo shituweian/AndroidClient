@@ -282,7 +282,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
         android:layout_marginTop="10dp">
@@ -290,7 +290,7 @@
         <Button
             android:id="@+id/register"
             android:layout_width="110dp"
-            android:layout_height="55dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/btn_bg"
             android:layout_alignParentLeft="true"
             android:text="CHANGE PROFILE"
@@ -299,7 +299,7 @@
         <Button
             android:id="@+id/edit"
             android:layout_width="110dp"
-            android:layout_height="55dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/btn_bg"
             android:layout_centerHorizontal="true"
             android:text="REGISTER"
@@ -308,7 +308,7 @@
         <Button
             android:id="@+id/login_in"
             android:layout_width="110dp"
-            android:layout_height="55dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/btn_bg"
             android:layout_alignParentRight="true"
             android:visibility="visible"
@@ -318,7 +318,7 @@
         <Button
             android:id="@+id/login_out"
             android:layout_width="110dp"
-            android:layout_height="55dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/btn_bg"
             android:layout_alignParentRight="true"
             android:visibility="gone"

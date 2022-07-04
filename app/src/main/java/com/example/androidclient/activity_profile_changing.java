@@ -55,7 +55,7 @@ public class activity_profile_changing extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_changing);
-        /*data = findViewById(R.id.profile_graduate_time);
+        data = findViewById(R.id.profile_graduate_time);
         data.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -79,11 +79,11 @@ public class activity_profile_changing extends Activity {
         HR = findViewById(R.id.radioButton_HR);
         HR_l = findViewById(R.id.hr_state);
 
-        school = findViewById(R.id.profile_school);
-        email = findViewById(R.id.profile_email);
-        username = findViewById(R.id.profile_username);
-        company = findViewById(R.id.profile_company);
-        YoE = findViewById(R.id.profile_YoE);
+        school = findViewById(R.id.profile_school_extend);
+        email = findViewById(R.id.profile_email_extend);
+        username = findViewById(R.id.profile_username_extend);
+        company = findViewById(R.id.profile_company_extend);
+        YoE = findViewById(R.id.profile_YOE_extend);
 
         confirm = findViewById(R.id.profile_confirm);
 
@@ -196,6 +196,6 @@ public class activity_profile_changing extends Activity {
                 return headers;
             }
         };
-        requestQueue.add(str);*/
+        requestQueue.add(str);
     }
 }

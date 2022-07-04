@@ -31,6 +31,17 @@
         <entry key="..\:/final project/AndroidClient/app/src/main/res/menu/bottom_nav_menu.xml" value="0.25364583333333335" />
         <entry key="..\:/final project/AndroidClient/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
         <entry key="..\:/final project/AndroidClient/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/btn_bg.xml" value="0.173" />
+        <entry key="app/src/main/res/drawable/btn_bg_clicked.xml" value="0.173" />
+        <entry key="app/src/main/res/drawable/btn_bg_waited.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/hint_superscript_red.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/selector_btn_click_bg.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_login_in.xml" value="0.4036458333333333" />
+        <entry key="app/src/main/res/layout/activity_profile_changing.xml" value="0.4036458333333333" />
+        <entry key="app/src/main/res/layout/activity_register.xml" value="0.4036458333333333" />
+        <entry key="app/src/main/res/layout/fragment_information.xml" value="0.1773049645390071" />
       </map>
     </option>
   </component>
@@ -39,5 +50,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.4036458333333333" />
+      </ProjectState>
+    </option>
   </component>
 </project>

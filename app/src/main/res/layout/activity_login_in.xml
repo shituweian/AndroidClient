@@ -72,12 +72,14 @@
             app:labelText="EMAIL"
             app:panelBackgroundColor="#00FFFFFF"
             app:iconSignifier="@drawable/ic_mail"
-            app:hasClearButton="true">
+            app:hasClearButton="true"
+            app:singleLine="true">
 
             <studio.carbonylgroup.textfieldboxes.ExtendedEditText
                 android:id="@+id/login_email_extend"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:inputType="text"
                 app:singleLine="true"/>
 
         </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
