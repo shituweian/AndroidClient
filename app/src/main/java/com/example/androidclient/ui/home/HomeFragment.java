@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.OvershootInterpolator;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -25,6 +26,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter;
+import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
+import jp.wasabeef.recyclerview.animators.LandingAnimator;
+
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
@@ -35,7 +40,7 @@ public class HomeFragment extends Fragment {
 
     private SwipeRefreshLayout mRefreshLayout;
 
-    private ListViewAdapter adapter;
+    private LoadMoreAdapter adapter;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -74,7 +79,8 @@ public class HomeFragment extends Fragment {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        adapter.notifyDataSetChanged();
+                        //adapter.notifyDataSetChanged();
+                        adapter.add(data,0);
                         mRefreshLayout.setRefreshing(false);
                     }
                 },600);
@@ -97,6 +103,16 @@ public class HomeFragment extends Fragment {
         List.setLayoutManager(layoutManager);
         adapter = new LoadMoreAdapter(mData);
         List.setAdapter(adapter);
+        LandingAnimator animator=new LandingAnimator();
+
+        List.setItemAnimator(animator);
+
+        AlphaInAnimationAdapter alphaInAnimationAdapter = new AlphaInAnimationAdapter(adapter);
+        alphaInAnimationAdapter.setDuration(1000);
+        alphaInAnimationAdapter.setInterpolator(new OvershootInterpolator());
+        alphaInAnimationAdapter.setFirstOnly(false);
+
+        List.setAdapter(new ScaleInAnimationAdapter(alphaInAnimationAdapter));
 
         initListener();
     }
@@ -124,9 +140,8 @@ public class HomeFragment extends Fragment {
                                 data.setName("Gao shiwei");
                                 data.setTime("27 July");
                                 data.setContent("I love U guys");
-                                mData.add(data);
 
-                                adapter.notifyDataSetChanged();
+                                adapter.add(data,mData.size());
                                 holder.update(LoadMoreAdapter.loaderMoreHolder.LOAD_STATE_NORMAL);
                             }else {
                                 holder.update(LoadMoreAdapter.loaderMoreHolder.LOAD_STATE_RELOAD);

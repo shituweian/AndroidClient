@@ -74,6 +74,16 @@ public class LoadMoreAdapter extends ListViewAdapter {
         void onUpPullRefresh(loaderMoreHolder Holder);
     }
 
+    public void remove(int position){
+        mData.remove(position);
+        notifyItemRemoved(position);
+    }
+
+    public void add(InterviewBean interview,int position){
+        mData.add(position,interview);
+        notifyItemInserted(position);
+    }
+
     public class loaderMoreHolder extends RecyclerView.ViewHolder {
         public static final int LOAD_STATE_LOADING = 0;
         public static final int LOAD_STATE_RELOAD = 1;
