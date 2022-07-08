@@ -34,7 +34,7 @@ public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
 
-    private RecyclerView List;
+    private RecyclerView recyclerView;
 
     private List<InterviewBean> mData;
 
@@ -51,7 +51,7 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        List = root.findViewById(R.id.recycler_view);
+        recyclerView = root.findViewById(R.id.recycler_view);
 
         mRefreshLayout=root.findViewById(R.id.home_refresh);
 
@@ -100,19 +100,19 @@ public class HomeFragment extends Fragment {
         }
 
         LinearLayoutManager layoutManager= new LinearLayoutManager(getContext());
-        List.setLayoutManager(layoutManager);
+        recyclerView.setLayoutManager(layoutManager);
         adapter = new LoadMoreAdapter(mData);
-        List.setAdapter(adapter);
+        recyclerView.setAdapter(adapter);
         LandingAnimator animator=new LandingAnimator();
 
-        List.setItemAnimator(animator);
+        recyclerView.setItemAnimator(animator);
 
         AlphaInAnimationAdapter alphaInAnimationAdapter = new AlphaInAnimationAdapter(adapter);
         alphaInAnimationAdapter.setDuration(1000);
         alphaInAnimationAdapter.setInterpolator(new OvershootInterpolator());
         alphaInAnimationAdapter.setFirstOnly(false);
 
-        List.setAdapter(new ScaleInAnimationAdapter(alphaInAnimationAdapter));
+        recyclerView.setAdapter(new ScaleInAnimationAdapter(alphaInAnimationAdapter));
 
         initListener();
     }

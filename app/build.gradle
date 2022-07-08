@@ -28,7 +28,21 @@ android {
     buildFeatures {
         viewBinding true
     }
+
+    sourceSets {
+        main {
+            res.srcDirs =
+                    [
+                            'src/main/res/layout/Initial_layout',
+                            'src/main/res/layout/information_relateed',
+                            'src/main/res/layout',
+                            'src/main/res'
+                    ]
+        }
+    }
 }
+
+
 
 dependencies {
     implementation 'androidx.appcompat:appcompat:1.4.1'
@@ -48,4 +62,5 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     api 'com.github.HITGIF:TextFieldBoxes:1.4.5'
     api 'me.codeboy.android:align-text-view:2.3.2'
+    api 'com.github.rubensousa:raiflatbutton:0.1'
 }

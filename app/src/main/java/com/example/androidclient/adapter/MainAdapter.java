@@ -4,19 +4,15 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.airbnb.lottie.animation.content.Content;
 import com.example.androidclient.Bean.InterviewBean;
 import com.example.androidclient.R;
 
 import java.util.List;
-
-import kotlin.jvm.internal.markers.KMutableList;
 
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder>{
 
@@ -29,7 +25,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder>{
     }
 
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewtype){
-        View v= LayoutInflater.from(content).inflate(R.layout.item_list_view,parent,false);
+        View v= LayoutInflater.from(content).inflate(R.layout.interview_list_view,parent,false);
         return new ViewHolder(v);
     }
 

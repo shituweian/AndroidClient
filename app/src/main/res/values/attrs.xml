@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="VerifyCodeButton">
-        <!--默认背景-->
         <attr name="android:background" />
-        <!--点击后背景-->
         <attr name="clickedBackground" format="reference" />
-        <!--倒计时间-->
         <attr name="waitedBackground" format="reference"/>
-        <!--等待时间-->
         <attr name="countdownTime" format="integer" />
-        <!--倒计时间后提示文字-->
         <attr name="countdownText" format="string" />
     </declare-styleable>
 

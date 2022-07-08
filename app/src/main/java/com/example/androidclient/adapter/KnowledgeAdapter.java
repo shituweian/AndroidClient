@@ -9,19 +9,20 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidclient.Bean.InterviewBean;
+import com.example.androidclient.Bean.KnowledgeBean;
 import com.example.androidclient.R;
 
 import java.util.List;
 
-public class LoadMoreAdapter extends ListViewAdapter {
+public class KnowledgeAdapter extends KnowledgeBasedAdapter{
 
-    public static final int TYPE_NORMAL = 0;
-    public static final int TYPE_LOADER_MORE = 1;
+    public static final int TYPE_NORMAL=0;
+    public static final int TYPE_LOADER_MORE=1;
 
 
     private OnRefreshListener mUpPullRefreshListener;
 
-    public LoadMoreAdapter(List<InterviewBean> data) {
+    public KnowledgeAdapter(List<KnowledgeBean> data){
         super(data);
     }
 
@@ -29,7 +30,7 @@ public class LoadMoreAdapter extends ListViewAdapter {
 
         View view = getSubView(parent, viewType);
         if (viewType == TYPE_NORMAL) {
-            return new InnerHolder(view);
+            return new KnowledgeInnerHolder(view);
         } else {
             return new loaderMoreHolder(view);
         }
@@ -37,23 +38,21 @@ public class LoadMoreAdapter extends ListViewAdapter {
 
     }
 
-
     protected View getSubView(ViewGroup parent, int viewType) {
         View view;
         if (viewType == TYPE_NORMAL) {
 
-            view = View.inflate(parent.getContext(), R.layout.interview_list_view, null);
+            view = View.inflate(parent.getContext(), R.layout.knowledge_list_view, null);
         } else {
             view = View.inflate(parent.getContext(), R.layout.item_list_load_more, null);
         }
         return view;
     }
 
-    @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        if (getItemViewType(position) == TYPE_NORMAL && holder instanceof InnerHolder) {
-            ((InnerHolder) holder).setData(mData.get(position), position);
-        } else if (getItemViewType(position) == TYPE_LOADER_MORE && holder instanceof loaderMoreHolder) {
+        if (getItemViewType(position) == TYPE_NORMAL && holder instanceof KnowledgeInnerHolder) {
+            ((KnowledgeInnerHolder) holder).setData(mData.get(position), position);
+        } else if (getItemViewType(position) == TYPE_LOADER_MORE && holder instanceof LoadMoreAdapter.loaderMoreHolder) {
             ((loaderMoreHolder) holder).update(loaderMoreHolder.LOAD_STATE_LOADING);
         }
     }
@@ -64,6 +63,8 @@ public class LoadMoreAdapter extends ListViewAdapter {
         }
         return TYPE_NORMAL;
     }
+
+
 
     public void setOnRefreshListener(OnRefreshListener listener) {
         this.mUpPullRefreshListener = listener;
@@ -78,7 +79,7 @@ public class LoadMoreAdapter extends ListViewAdapter {
         notifyItemRemoved(position);
     }
 
-    public void add(InterviewBean interview,int position){
+    public void add(KnowledgeBean interview, int position){
         mData.add(position,interview);
         notifyItemInserted(position);
     }
