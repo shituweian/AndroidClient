@@ -35,7 +35,7 @@ android {
                     [
                             'src/main/res/layout/Initial_layout',
                             'src/main/res/layout/information_relateed',
-                            'src/main/res/layout',
+                            'src/main/res/layout/knowledge',
                             'src/main/res'
                     ]
         }
