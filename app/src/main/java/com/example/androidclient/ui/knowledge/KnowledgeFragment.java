@@ -27,21 +27,18 @@ import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.androidclient.Bean.AnswerBean;
 import com.example.androidclient.Bean.CommentBean;
-import com.example.androidclient.Bean.InterviewBean;
 import com.example.androidclient.Bean.KnowledgeBean;
 import com.example.androidclient.R;
-import com.example.androidclient.activity_login_in;
+import com.example.androidclient.activity_knowledge;
 import com.example.androidclient.adapter.KnowledgeAdapter;
-import com.example.androidclient.adapter.KnowledgeBasedAdapter;
-import com.example.androidclient.adapter.ListViewAdapter;
 import com.example.androidclient.adapter.LoadMoreAdapter;
-import com.example.androidclient.comment.interviews;
 import com.example.androidclient.databinding.FragmentKnowledgeBinding;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -146,6 +143,9 @@ public class KnowledgeFragment extends Fragment {
             @Override
             public void onItemClick(int position) {
                 Toast.makeText(getContext(), "您点击的是第" + position + "个条目", Toast.LENGTH_SHORT).show();
+                Intent intent =new Intent(getActivity(), activity_knowledge.class);
+                intent.putExtra("knowledge",(Serializable) mData.get(position));
+                startActivity(intent);
             }
         });
 
@@ -245,7 +245,6 @@ public class KnowledgeFragment extends Fragment {
                                         answerBeanList.add(answerBean);
                                     }
 
-                                    Toast.makeText(context, "success", Toast.LENGTH_SHORT).show();
                                     KnowledgeBean bean = new KnowledgeBean(buffer.get("knowledgeId").toString(), buffer.get("question_content").toString(),
                                             buffer.get("answer_list").toString(), buffer.get("userid").toString(), buffer.get("interviewId").toString(), buffer.get("userName").toString(),
                                             buffer.get("comment_list").toString(), buffer.get("company").toString(), buffer.get("tag").toString(),

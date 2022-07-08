@@ -27,6 +27,7 @@
         <activity android:name=".activity_register"/>
         <activity android:name=".activity_login_in"/>
         <activity android:name=".ButtonMain"/>
+        <activity android:name=".activity_knowledge"/>
     </application>
 
 </manifest>

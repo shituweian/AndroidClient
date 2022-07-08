@@ -1,6 +1,6 @@
 package com.example.androidclient.Bean;
 
-public class CommentBean {
+public class CommentBean implements BasedBean_knowledge_detail{
 
     private String knowledgeComment_id;
     private String knowledge_id;

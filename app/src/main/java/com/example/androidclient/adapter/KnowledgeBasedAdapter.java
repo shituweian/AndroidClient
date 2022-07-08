@@ -65,6 +65,14 @@ public abstract class KnowledgeBasedAdapter extends RecyclerView.Adapter<Recycle
         tag=itemView.findViewById(R.id.knowledge_tag);
         company=itemView.findViewById(R.id.knowledge_company);
         username=itemView.findViewById(R.id.knowledge_username);
+
+        itemView.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view){
+                if(mOnItemClickListener!=null){
+                    mOnItemClickListener.onItemClick(position);
+                }
+            }
+        });
     }
 
     public void setData(KnowledgeBean knowledgeBean){

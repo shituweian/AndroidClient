@@ -1,8 +1,9 @@
 package com.example.androidclient.Bean;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class KnowledgeBean {
+public class KnowledgeBean implements Serializable {
 
     private String knowledge_id;
     private String question_content;
