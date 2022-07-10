@@ -5,33 +5,33 @@
     android:background="@color/background"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="0dp"
-        android:layout_above="@+id/activity_knowledge_reply"
-        android:layout_centerInParent="true"
-        android:background="@color/background">
 
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        <com.scwang.smart.refresh.layout.SmartRefreshLayout
             android:id="@+id/activity_knowledge_swipe"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_above="@+id/activity_knowledge_reply">
+
+            <com.scwang.smart.refresh.header.BezierRadarHeader
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:srlPrimaryColor="@color/web_blue"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/knowledge_activity_recyclerView"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="0dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
 
 
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        </com.scwang.smart.refresh.layout.SmartRefreshLayout>
 
 
 
-    </FrameLayout>
 
     <FrameLayout
         android:id="@+id/activity_knowledge_reply"

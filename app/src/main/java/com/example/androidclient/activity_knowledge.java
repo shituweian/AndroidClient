@@ -11,6 +11,7 @@ import android.view.animation.OvershootInterpolator;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -28,6 +29,9 @@ import com.example.androidclient.Bean.KnowledgeBean;
 import com.example.androidclient.adapter.LoadMoreAdapter;
 import com.example.androidclient.adapter.knowledge_detailed_adapter.KnowledgeDetailedBasedAdapter;
 import com.example.androidclient.applicationContent.userProfile;
+import com.scwang.smart.refresh.footer.BallPulseFooter;
+import com.scwang.smart.refresh.header.BezierRadarHeader;
+import com.scwang.smart.refresh.layout.SmartRefreshLayout;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -57,7 +61,7 @@ public class activity_knowledge extends Activity {
 
     private ExtendedEditText reply;
 
-    private SwipeRefreshLayout swipe;
+    private SmartRefreshLayout swipe;
 
     private final String[] change = new String[]{"COMMENT", "ANSWER"};
 
@@ -72,6 +76,10 @@ public class activity_knowledge extends Activity {
         reply = findViewById(R.id.activity_knowledge_extend);
         profile=(userProfile)getApplicationContext();
         swipe=findViewById(R.id.activity_knowledge_swipe);
+
+
+        swipe.setRefreshFooter(new BallPulseFooter(this));
+
         recyclerView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -79,6 +87,7 @@ public class activity_knowledge extends Activity {
                 return false;
             }
         });
+        recyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
         reply_box.getIconImageButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

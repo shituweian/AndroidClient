@@ -30,11 +30,25 @@ import com.example.androidclient.Bean.CommentBean;
 import com.example.androidclient.Bean.KnowledgeBean;
 import com.example.androidclient.R;
 import com.example.androidclient.activity_knowledge;
+import com.example.androidclient.activity_knowledge_add;
+import com.example.androidclient.activity_login_in;
+import com.example.androidclient.activity_register;
 import com.example.androidclient.adapter.KnowledgeAdapter;
 import com.example.androidclient.adapter.KnowledgeBasedAdapter;
 import com.example.androidclient.adapter.LoadMoreAdapter;
 import com.example.androidclient.applicationContent.userProfile;
 import com.example.androidclient.databinding.FragmentKnowledgeBinding;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.scwang.smart.refresh.footer.BallPulseFooter;
+import com.scwang.smart.refresh.footer.ClassicsFooter;
+import com.scwang.smart.refresh.header.BezierRadarHeader;
+import com.scwang.smart.refresh.header.ClassicsHeader;
+import com.scwang.smart.refresh.header.FalsifyFooter;
+import com.scwang.smart.refresh.header.MaterialHeader;
+import com.scwang.smart.refresh.header.TwoLevelHeader;
+import com.scwang.smart.refresh.layout.api.RefreshLayout;
+import com.scwang.smart.refresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smart.refresh.layout.listener.OnRefreshListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -62,13 +76,15 @@ public class KnowledgeFragment extends Fragment {
 
     private List<KnowledgeBean> mData;
 
-    private SwipeRefreshLayout mRefreshLayout;
+    private RefreshLayout mRefreshLayout;
 
     private KnowledgeAdapter adapter;
 
     private Context context;
 
     private int currentPage=1;
+
+    private FloatingActionButton add;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -83,6 +99,12 @@ public class KnowledgeFragment extends Fragment {
 
         mRefreshLayout = root.findViewById(R.id.knowledge_refresh);
 
+
+
+        //mRefreshLayout.setRefreshHeader(new TwoLevelHeader(this.getContext()));
+
+        mRefreshLayout.setRefreshFooter(new BallPulseFooter(this.getContext()));
+
         requestQueue = Volley.newRequestQueue(this.getContext());
 
         context = this.getContext();
@@ -91,6 +113,16 @@ public class KnowledgeFragment extends Fragment {
 
         Toast.makeText(getContext(), profile.getEmail(), Toast.LENGTH_SHORT).show();
 
+        add=root.findViewById(R.id.knowledge_floatingButton);
+
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), activity_knowledge_add.class);
+
+                startActivity(intent);
+            }
+        });
 
         mData = new ArrayList<>();
         volleyPostInitial(binding.getRoot());
@@ -103,9 +135,9 @@ public class KnowledgeFragment extends Fragment {
     }
 
     public void handlerDownPullUpdate() {
-        mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        mRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
-            public void onRefresh() {
+            public void onRefresh(RefreshLayout refreshlayout) {
                 KnowledgeBean data = new KnowledgeBean();
                 data.setQuestion_content("what is the 5 layers of network in computer");
                 data.setTag("network");
@@ -120,7 +152,7 @@ public class KnowledgeFragment extends Fragment {
                         currentPage++;
                         Toast.makeText(context, "fresh", Toast.LENGTH_SHORT).show();
                         volleyPostInitial(binding.getRoot());
-                        mRefreshLayout.setRefreshing(false);
+                        mRefreshLayout.finishRefresh(600);
                     }
                 }, 600);
             }
@@ -159,24 +191,16 @@ public class KnowledgeFragment extends Fragment {
             }
         });
 
-        if (adapter instanceof KnowledgeAdapter) {
-            ((KnowledgeAdapter) adapter).setOnRefreshListener(new KnowledgeAdapter.OnRefreshListener() {
-                @Override
-                public void onUpPullRefresh(final KnowledgeBasedAdapter.KnowledgeInnerHolder holder) {
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
+        mRefreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                currentPage++;
+                Toast.makeText(context, "fresh", Toast.LENGTH_SHORT).show();
+                volleyPostInitial(binding.getRoot());
+                mRefreshLayout.finishLoadMore(600);
+            }
+        });
 
-                            currentPage++;
-                            Toast.makeText(context, "fresh", Toast.LENGTH_SHORT).show();
-                            volleyPostInitial(binding.getRoot());
-                            mRefreshLayout.setRefreshing(false);
-                            recyclerView.scrollToPosition(mData.size());
-                        }
-                    }, 600);
-                }
-            });
-        }
 
     }
 

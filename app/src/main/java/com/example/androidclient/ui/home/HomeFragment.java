@@ -21,6 +21,11 @@ import com.example.androidclient.adapter.ListViewAdapter;
 import com.example.androidclient.adapter.LoadMoreAdapter;
 import com.example.androidclient.comment.interviews;
 import com.example.androidclient.databinding.FragmentHomeBinding;
+import com.scwang.smart.refresh.footer.BallPulseFooter;
+import com.scwang.smart.refresh.header.TwoLevelHeader;
+import com.scwang.smart.refresh.layout.SmartRefreshLayout;
+import com.scwang.smart.refresh.layout.api.RefreshLayout;
+import com.scwang.smart.refresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +43,7 @@ public class HomeFragment extends Fragment {
 
     private List<InterviewBean> mData;
 
-    private SwipeRefreshLayout mRefreshLayout;
+    private SmartRefreshLayout mRefreshLayout;
 
     private LoadMoreAdapter adapter;
 
@@ -55,6 +60,10 @@ public class HomeFragment extends Fragment {
 
         mRefreshLayout=root.findViewById(R.id.home_refresh);
 
+        mRefreshLayout.setRefreshHeader(new TwoLevelHeader(this.getContext()));
+
+        mRefreshLayout.setRefreshFooter(new BallPulseFooter(this.getContext()));
+
 
         return root;
     }
@@ -68,9 +77,9 @@ public class HomeFragment extends Fragment {
 
 
     public void handlerDownPullUpdate(){
-        mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        mRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
-            public void onRefresh() {
+            public void onRefresh(RefreshLayout r1) {
                 InterviewBean data=new InterviewBean();
                 data.setName("Gao shiwei");
                 data.setTime("27 July");
@@ -81,7 +90,7 @@ public class HomeFragment extends Fragment {
                     public void run() {
                         //adapter.notifyDataSetChanged();
                         adapter.add(data,0);
-                        mRefreshLayout.setRefreshing(false);
+                        mRefreshLayout.finishRefresh();
                     }
                 },600);
             }
