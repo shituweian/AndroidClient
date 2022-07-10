@@ -1,7 +1,9 @@
 package com.example.androidclient.adapter.knowledge_detailed_adapter;
 
+import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -111,6 +113,7 @@ public class KnowledgeDetailedBasedAdapter extends RecyclerView.Adapter<Recycler
             question_content=itemView.findViewById(R.id.knowledge_detailed_question_content);
             tag=itemView.findViewById(R.id.knowledge_detailed_tag);
             company=itemView.findViewById(R.id.knowledge_detailed_company);
+
         }
 
         public void setData(KnowledgeBean knowledgeBean){
@@ -136,6 +139,7 @@ public class KnowledgeDetailedBasedAdapter extends RecyclerView.Adapter<Recycler
             time=itemView.findViewById(R.id.knowledge_comment_time);
             content=itemView.findViewById(R.id.knowledge_comment_content);
             type=itemView.findViewById(R.id.knowledge_comment_type);
+
         }
 
         public void setData(BasedBean_knowledge_detail BasedBean){

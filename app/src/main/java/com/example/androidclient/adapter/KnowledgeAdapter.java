@@ -50,17 +50,17 @@ public class KnowledgeAdapter extends KnowledgeBasedAdapter{
     }
 
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        if (getItemViewType(position) == TYPE_NORMAL && holder instanceof KnowledgeInnerHolder) {
+        //if (getItemViewType(position) == TYPE_NORMAL && holder instanceof KnowledgeInnerHolder) {
             ((KnowledgeInnerHolder) holder).setData(mData.get(position), position);
-        } else if (getItemViewType(position) == TYPE_LOADER_MORE && holder instanceof LoadMoreAdapter.loaderMoreHolder) {
+        /*} else if (getItemViewType(position) == TYPE_LOADER_MORE && holder instanceof LoadMoreAdapter.loaderMoreHolder) {
             ((loaderMoreHolder) holder).update(loaderMoreHolder.LOAD_STATE_LOADING);
-        }
+        }*/
     }
 
     public int getItemViewType(int position) {
-        if (position == getItemCount() - 1) {
+        /*if (position == getItemCount() - 1) {
             return TYPE_LOADER_MORE;
-        }
+        }*/
         return TYPE_NORMAL;
     }
 
@@ -71,7 +71,7 @@ public class KnowledgeAdapter extends KnowledgeBasedAdapter{
     }
 
     public interface OnRefreshListener {
-        void onUpPullRefresh(loaderMoreHolder Holder);
+        void onUpPullRefresh(KnowledgeInnerHolder Holder);
     }
 
     public void remove(int position){
@@ -128,7 +128,7 @@ public class KnowledgeAdapter extends KnowledgeBasedAdapter{
 
         private void startLoadMore() {
             if (mUpPullRefreshListener != null) {
-                mUpPullRefreshListener.onUpPullRefresh(this);
+                //mUpPullRefreshListener.onUpPullRefresh(this);
             }
         }
     }

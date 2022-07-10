@@ -1,13 +1,16 @@
 package com.example.androidclient.adapter;
 
+import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidclient.Bean.KnowledgeBean;
 import com.example.androidclient.R;
+import com.example.androidclient.activity_knowledge;
 import com.github.rubensousa.raiflatbutton.RaiflatButton;
 
 import java.util.List;

@@ -5,17 +5,19 @@
     android:background="@color/background"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.cardview.widget.CardView
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="0dp"
+        android:layout_above="@+id/activity_knowledge_reply"
         android:layout_centerInParent="true"
         android:background="@color/background">
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/activity_knowledge_swipe"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -29,6 +31,39 @@
 
 
 
-    </androidx.cardview.widget.CardView>
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/activity_knowledge_reply"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        >
+
+    <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+        android:id="@+id/activity_knowledge_box"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp"
+        android:gravity="center"
+        android:layout_marginTop="5dp"
+        app:iconSignifier="@drawable/ic_baseline_autorenew_24"
+        app:endIcon="@drawable/ic_baseline_reply_24"
+        app:labelText="COMMENT"
+        app:panelBackgroundColor="#00FFFFFF"
+        app:hasClearButton="true">
+
+        <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+            android:id="@+id/activity_knowledge_extend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
+    </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+
+    </FrameLayout>
 
 </RelativeLayout>

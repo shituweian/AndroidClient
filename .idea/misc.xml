@@ -8,6 +8,7 @@
         <entry key="..\:/final project/AndroidClient/app/src/main/res/drawable/btn_bg_clicked.xml" value="0.1" />
         <entry key="..\:/final project/AndroidClient/app/src/main/res/drawable/btn_bg_waited.xml" value="0.1" />
         <entry key="..\:/final project/AndroidClient/app/src/main/res/drawable/hint_superscript_red.xml" value="0.1" />
+        <entry key="..\:/final project/AndroidClient/app/src/main/res/drawable/ic_baseline_autorenew_24.xml" value="0.1" />
         <entry key="..\:/final project/AndroidClient/app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.2265" />
         <entry key="..\:/final project/AndroidClient/app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.2265" />
         <entry key="..\:/final project/AndroidClient/app/src/main/res/drawable/ic_key.xml" value="0.137" />
@@ -38,6 +39,7 @@
         <entry key="..\:/final project/AndroidClient/app/src/main/res/layout/interview_list_view.xml" value="0.2046875" />
         <entry key="..\:/final project/AndroidClient/app/src/main/res/layout/item_list_load_more.xml" value="0.16" />
         <entry key="..\:/final project/AndroidClient/app/src/main/res/layout/item_list_view.xml" value="0.2" />
+        <entry key="..\:/final project/AndroidClient/app/src/main/res/layout/knowledge/layout/activity_knowledge.xml" value="0.256140350877193" />
         <entry key="..\:/final project/AndroidClient/app/src/main/res/layout/knowledge/layout/knowledge_list_view_comment.xml" value="0.16621376811594202" />
         <entry key="..\:/final project/AndroidClient/app/src/main/res/layout/knowledge/layout/knowledge_list_view_detail.xml" value="0.16621376811594202" />
         <entry key="..\:/final project/AndroidClient/app/src/main/res/layout/knowledge_list_view.xml" value="0.2505399568034557" />

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -77,7 +78,6 @@ public class activity_login_in extends Activity {
                     @Override
                     public void onResponse(JSONObject response) {
                         String code = "";
-                        JSONObject data = new JSONObject();
                         try {
                             code = (String) response.get("code");
 
@@ -85,25 +85,24 @@ public class activity_login_in extends Activity {
                             e.printStackTrace();
                         }
                         if (code.equals("00")) {
+
                             try {
-                                data = (JSONObject) response.get("data");
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                profile.setEmail(data.get("email").toString());
+                                profile.setToken(response.get("token").toString());
+                                profile.setEmail(email.getText().toString());
+                                /*profile.setEmail(data.get("email").toString());
                                 profile.setUsername(data.get("name").toString());
                                 profile.setCompany(data.get("company").toString());
                                 profile.setDate(data.get("date").toString());
                                 profile.setSchool(data.get("school").toString());
-                                profile.setType(data.get("type").toString());
+                                profile.setType(data.get("type").toString());*/
                                 Intent intent = new Intent();
-                                intent.putExtra("email", data.get("email").toString());
+                                intent.putExtra("email",email.getText().toString());
+                                /*intent.putExtra("email", data.get("email").toString());
                                 intent.putExtra("username", data.get("name").toString());
                                 intent.putExtra("school", data.get("school").toString());
                                 intent.putExtra("date", data.get("date").toString());
                                 intent.putExtra("type", data.get("type").toString());
-                                intent.putExtra("company", data.get("company").toString());
+                                intent.putExtra("company", data.get("company").toString());*/
                                 intent.setAction("action.refresh");
                                 sendBroadcast(intent);
                                 //activity_login_in.this.setResult(110,intent);
@@ -139,5 +138,6 @@ public class activity_login_in extends Activity {
         };
         requestQueue.add(str);
     }
+
 
 }

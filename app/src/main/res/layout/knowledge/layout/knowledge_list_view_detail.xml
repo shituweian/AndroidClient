@@ -47,7 +47,7 @@
         android:layout_marginTop="12dp"
         android:layout_marginBottom="12dp"
         android:text="this is the second test"
-        android:textSize="16sp"
+        android:textSize="18sp"
         app:align="left"
         />
 
@@ -65,7 +65,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="tag"
-            android:textSize="16sp"
+            android:textSize="14sp"
             app:align="right"
             android:layout_toLeftOf="@id/knowledge_detailed_company"
             android:layout_marginRight="15dp"
@@ -76,7 +76,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="company"
-            android:textSize="16sp"
+            android:textSize="14sp"
             app:align="right"
             android:layout_alignParentEnd="true"
             />

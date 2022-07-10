@@ -12,6 +12,7 @@ public class userProfile extends Application {
     private String date;
     private String type;
     private String company;
+    private String token;
 
     @Override
     public void onCreate() {
@@ -23,50 +24,68 @@ public class userProfile extends Application {
         }
     }
 
-    public String getEmail(){
+    public String getEmail() {
         return email;
     }
-    public String getUsername(){
+
+    public String getUsername() {
         return username;
     }
-    public String getDate(){
+
+    public String getDate() {
         return date;
     }
-    public String getType(){
+
+    public String getType() {
         return type;
     }
-    public String getSchool(){
+
+    public String getSchool() {
         return school;
     }
-    public String getCompany(){
+
+    public String getCompany() {
         return company;
     }
 
-    public void setEmail(String email){
-        this.email=email;
+    public String getToken() {
+        return token;
     }
-    public void setUsername(String username){
-        this.username=username;
+
+    public void setEmail(String email) {
+        this.email = email;
     }
-    public void setDate(String date){
-        this.date=date;
+
+    public void setUsername(String username) {
+        this.username = username;
     }
-    public void setType(String type){
-        this.type=type;
+
+    public void setDate(String date) {
+        this.date = date;
     }
-    public void setSchool(String school){
-        this.school=school;
+
+    public void setType(String type) {
+        this.type = type;
     }
-    public void setCompany(String company){
-        this.company=company;
+
+    public void setSchool(String school) {
+        this.school = school;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public void initTypeface() throws NoSuchFieldException {
-        Typeface newfont=Typeface.createFromAsset(getAssets(),"fonts/Roboto/Roboto-Regular.ttf");
-        Field monospace=Typeface.class.getDeclaredField("MONOSPACE");
+        Typeface newfont = Typeface.createFromAsset(getAssets(), "fonts/Roboto/Roboto-Regular.ttf");
+        Field monospace = Typeface.class.getDeclaredField("MONOSPACE");
         monospace.setAccessible(true);
         try {
-            monospace.set(null,newfont);
+            monospace.set(null, newfont);
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }

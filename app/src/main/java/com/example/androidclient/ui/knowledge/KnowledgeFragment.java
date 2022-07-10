@@ -31,7 +31,9 @@ import com.example.androidclient.Bean.KnowledgeBean;
 import com.example.androidclient.R;
 import com.example.androidclient.activity_knowledge;
 import com.example.androidclient.adapter.KnowledgeAdapter;
+import com.example.androidclient.adapter.KnowledgeBasedAdapter;
 import com.example.androidclient.adapter.LoadMoreAdapter;
+import com.example.androidclient.applicationContent.userProfile;
 import com.example.androidclient.databinding.FragmentKnowledgeBinding;
 
 import org.json.JSONArray;
@@ -52,6 +54,7 @@ import jp.wasabeef.recyclerview.animators.LandingAnimator;
 public class KnowledgeFragment extends Fragment {
 
     RequestQueue requestQueue;
+    private userProfile profile;
 
     private FragmentKnowledgeBinding binding;
 
@@ -64,6 +67,9 @@ public class KnowledgeFragment extends Fragment {
     private KnowledgeAdapter adapter;
 
     private Context context;
+
+    private int currentPage=1;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -81,10 +87,10 @@ public class KnowledgeFragment extends Fragment {
 
         context = this.getContext();
 
-        return root;
-    }
+        profile=(userProfile)this.getActivity().getApplicationContext();
 
-    public void onStart() {
+        Toast.makeText(getContext(), profile.getEmail(), Toast.LENGTH_SHORT).show();
+
 
         mData = new ArrayList<>();
         volleyPostInitial(binding.getRoot());
@@ -92,6 +98,8 @@ public class KnowledgeFragment extends Fragment {
         super.onStart();
         initData();
         handlerDownPullUpdate();
+
+        return root;
     }
 
     public void handlerDownPullUpdate() {
@@ -103,14 +111,16 @@ public class KnowledgeFragment extends Fragment {
                 data.setTag("network");
                 data.setCompany("Alibaba");
                 data.setUsername("Gao Shiwei");
-                mData.add(0, data);
+                //mData.add(0, data);
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         //adapter.notifyDataSetChanged();
-                        adapter.add(data, 0);
+                        //adapter.add(data, 0);
+                        currentPage++;
+                        Toast.makeText(context, "fresh", Toast.LENGTH_SHORT).show();
+                        volleyPostInitial(binding.getRoot());
                         mRefreshLayout.setRefreshing(false);
-                        recyclerView.scrollToPosition(0);
                     }
                 }, 600);
             }
@@ -152,25 +162,16 @@ public class KnowledgeFragment extends Fragment {
         if (adapter instanceof KnowledgeAdapter) {
             ((KnowledgeAdapter) adapter).setOnRefreshListener(new KnowledgeAdapter.OnRefreshListener() {
                 @Override
-                public void onUpPullRefresh(final KnowledgeAdapter.loaderMoreHolder holder) {
+                public void onUpPullRefresh(final KnowledgeBasedAdapter.KnowledgeInnerHolder holder) {
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            Random random = new Random();
 
-                            if (random.nextInt() % 2 == 0) {
-                                KnowledgeBean data = new KnowledgeBean();
-                                data.setQuestion_content("what is the 5 layers of network in computer");
-                                data.setTag("network");
-                                data.setCompany("Alibaba");
-                                data.setUsername("Gao Shiwei");
-
-                                adapter.add(data, mData.size());
-                                holder.update(LoadMoreAdapter.loaderMoreHolder.LOAD_STATE_NORMAL);
-                                recyclerView.scrollToPosition(mData.size());
-                            } else {
-                                holder.update(LoadMoreAdapter.loaderMoreHolder.LOAD_STATE_RELOAD);
-                            }
+                            currentPage++;
+                            Toast.makeText(context, "fresh", Toast.LENGTH_SHORT).show();
+                            volleyPostInitial(binding.getRoot());
+                            mRefreshLayout.setRefreshing(false);
+                            recyclerView.scrollToPosition(mData.size());
                         }
                     }, 600);
                 }
@@ -188,12 +189,12 @@ public class KnowledgeFragment extends Fragment {
     public void volleyPostInitial(View v) {
         final ProgressDialog dialog = new ProgressDialog(this.getContext());
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put("pageFirst", 1);
-        map.put("pageSizeFirst", 22);
+        map.put("pageFirst", currentPage);
+        map.put("pageSizeFirst", 5);
         map.put("pageSecond", 1);
         map.put("pageSizeSecond", 5);
         map.put("pageThird", 1);
-        map.put("pageSizeThird", 2);
+        map.put("pageSizeThird", 5);
         map.put("type", 0);
         map.put("tag1", 0);
         map.put("tag2", 0);
@@ -253,7 +254,109 @@ public class KnowledgeFragment extends Fragment {
                                             (Integer) comment_queryInfo.get("totalRecord"));
                                     bean.setAnswers(answerBeanList);
                                     bean.setComments(commentBeanList);
-                                    adapter.add(bean, i);
+                                    adapter.add(bean, mData.size());
+                                }
+                                Toast.makeText(context, "success", Toast.LENGTH_SHORT).show();
+
+                                recyclerView.scrollToPosition(mData.size()-1);
+
+                            } catch (Exception e) {
+                                Toast.makeText(context, e.toString(), Toast.LENGTH_SHORT).show();
+                            }
+                        } else if (code.equals("01")) {
+                            Toast.makeText(context, "incorrect password", Toast.LENGTH_SHORT).show();
+                        } else if (code.equals("02")) {
+                            Toast.makeText(context, "no such account", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(context, error.toString(), Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Accept", "application/json");
+                headers.put("Content-Type", "application/json; charset=UTF-8");
+                headers.put("token", profile.getToken());
+                return headers;
+            }
+        };
+        requestQueue.add(str);
+    }
+
+    public void volleyPostAdd(View v) {
+        final ProgressDialog dialog = new ProgressDialog(this.getContext());
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("pageFirst", currentPage);
+        map.put("pageSizeFirst", 10);
+        map.put("pageSecond", 1);
+        map.put("pageSizeSecond", 5);
+        map.put("pageThird", 1);
+        map.put("pageSizeThird", 5);
+        map.put("type", 0);
+        map.put("tag1", 0);
+        map.put("tag2", 0);
+        JSONObject jsonObject = new JSONObject(map);
+        JsonRequest<JSONObject> str = new JsonObjectRequest(Request.Method.POST, "http://120.77.98.16:8080/knowledge_load", jsonObject,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        String code = "";
+                        JSONObject data = new JSONObject();
+                        JSONArray array = new JSONArray();
+                        try {
+                            code = (String) response.get("code");
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        if (code.equals("00")) {
+                            try {
+                                data = (JSONObject) response.get("data");
+                                array = (JSONArray) data.get("entities");
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                for (int i = 0; i < array.length(); i++) {
+                                    JSONObject buffer = array.getJSONObject(i);
+
+
+                                    JSONObject comments = buffer.getJSONObject("comments");
+                                    JSONObject comment_queryInfo = comments.getJSONObject("queryInfo");
+                                    JSONArray comment_array = comments.getJSONArray("entities");
+                                    List<CommentBean> commentBeanList = new ArrayList<>();
+                                    for (int j = 0; j < comment_array.length(); j++) {
+                                        JSONObject comment = comment_array.getJSONObject(j);
+                                        CommentBean commentBean = new CommentBean(comment.get("knowledgeCommentId").toString(), comment.get("knowledgeId").toString(),
+                                                comment.get("providerId").toString(), comment.get("userName").toString(), comment.get("content").toString(), comment.get("uploadTime").toString());
+                                        commentBeanList.add(commentBean);
+                                    }
+
+                                    JSONObject answers = buffer.getJSONObject("answers");
+                                    JSONObject answer_queryInfo = answers.getJSONObject("queryInfo");
+                                    JSONArray answer_array = answers.getJSONArray("entities");
+                                    List<AnswerBean> answerBeanList = new ArrayList<>();
+                                    for (int j = 0; j < answer_array.length(); j++) {
+                                        JSONObject answer = answer_array.getJSONObject(j);
+                                        AnswerBean answerBean = new AnswerBean(answer.get("knowledgeAnswerId").toString(), answer.get("knowledgeId").toString(), answer.get("providerId").toString(),
+                                                answer.get("userName").toString(), answer.get("content").toString(), answer.get("uploadTime").toString());
+                                        answerBeanList.add(answerBean);
+                                    }
+
+                                    KnowledgeBean bean = new KnowledgeBean(buffer.get("knowledgeId").toString(), buffer.get("question_content").toString(),
+                                            buffer.get("answer_list").toString(), buffer.get("userid").toString(), buffer.get("interviewId").toString(), buffer.get("userName").toString(),
+                                            buffer.get("comment_list").toString(), buffer.get("company").toString(), buffer.get("tag").toString(),
+                                            buffer.get("uploadTime").toString(), (Integer) buffer.get("isLiked"), (Integer) answer_queryInfo.get("currentPage"), (Integer) answer_queryInfo.get("pageSize"),
+                                            (Integer) answer_queryInfo.get("totalRecord"), (Integer) comment_queryInfo.get("currentPage"), (Integer) comment_queryInfo.get("pageSize"),
+                                            (Integer) comment_queryInfo.get("totalRecord"));
+                                    bean.setAnswers(answerBeanList);
+                                    bean.setComments(commentBeanList);
+                                    adapter.add(bean, mData.size());
                                 }
 
                             } catch (Exception e) {
@@ -277,11 +380,12 @@ public class KnowledgeFragment extends Fragment {
                 HashMap<String, String> headers = new HashMap<String, String>();
                 headers.put("Accept", "application/json");
                 headers.put("Content-Type", "application/json; charset=UTF-8");
-                headers.put("token", "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJnYW9zaGl3ZWlAcXEuY29tIiwiZXhwIjoxNjU3MDgwMzkwLCJpbmZvIjp7ImFkbWluIjowLCJ1c2VybmFtZSI6IjEyMyJ9fQ.9V7GBiGvoxGUDMBUUHelSPWw_v5rDoGvpMCsrpHENiY");
+                headers.put("token", profile.getToken());
                 return headers;
             }
         };
         requestQueue.add(str);
     }
+
 
 }
