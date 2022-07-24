@@ -108,7 +108,8 @@ public class activity_login_in extends Activity {
                                 //activity_login_in.this.setResult(110,intent);
                                 //startActivity(intent);
                                 //Toast.makeText(activity_login_in.this, data.get("email").toString(), Toast.LENGTH_SHORT).show();
-
+                                Intent intent1 =new Intent(activity_login_in.this,MainActivity.class);
+                                startActivity(intent1);
                                 finish();
 
                             } catch (Exception e) {

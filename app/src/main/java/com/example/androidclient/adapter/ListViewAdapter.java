@@ -65,9 +65,9 @@ public abstract class ListViewAdapter extends RecyclerView.Adapter<RecyclerView.
 
         public InnerHolder(View itemView){
             super(itemView);
-            name=itemView.findViewById(R.id.listview_name);
+            /*name=itemView.findViewById(R.id.listview_name);
             time=itemView.findViewById(R.id.listview_time);
-            content=itemView.findViewById(R.id.listview_content);
+            content=itemView.findViewById(R.id.listview_content);*/
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -81,18 +81,18 @@ public abstract class ListViewAdapter extends RecyclerView.Adapter<RecyclerView.
         }
 
         public void setData(InterviewBean interviewBean){
-            String[] contents=interviewBean.getAll();
+            /*String[] contents=interviewBean.getAll();
             name.setText(contents[0]);
             time.setText(contents[1]);
-            content.setText(contents[2]);
+            content.setText(contents[2]);*/
         }
 
         public void setData(InterviewBean interviewBean,int position){
-            this.mPosition=position;
+            /*this.mPosition=position;
             String[] contents=interviewBean.getAll();
             name.setText(contents[0]);
             time.setText(contents[1]);
-            content.setText(contents[2]);
+            content.setText(contents[2]);*/
         }
 
     }

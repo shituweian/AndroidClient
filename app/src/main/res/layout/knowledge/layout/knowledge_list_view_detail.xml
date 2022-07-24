@@ -21,6 +21,8 @@
             android:layout_height="wrap_content"
             android:text="Gao Shiwei"
             android:textSize="18sp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
             android:layout_alignParentStart="true"
             app:align="left"
             />
@@ -30,6 +32,7 @@
             android:layout_height="wrap_content"
             android:text="time"
             android:textSize="14sp"
+            android:textColor="@color/time_color"
             android:layout_alignParentEnd="true"
             app:align="right"
             />
@@ -39,7 +42,7 @@
 
     </RelativeLayout>
 
-    <me.codeboy.android.aligntextview.AlignTextView
+    <!--me.codeboy.android.aligntextview.AlignTextView
         android:id="@+id/knowledge_detailed_question_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -50,7 +53,24 @@
         android:text="this is the second test"
         android:textSize="18sp"
         app:align="left"
-        />
+        /-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="-40dp"
+        android:layout_marginRight="-40dp"
+        android:layout_marginBottom="-40dp"
+        >
+
+    <br.tiagohm.markdownview.MarkdownView
+        android:id="@+id/knowledge_detailed_question_content"
+        app:escapeHtml="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    </LinearLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"

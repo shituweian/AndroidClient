@@ -8,7 +8,7 @@
     android:background="@color/background">
 
     <com.scwang.smart.refresh.layout.SmartRefreshLayout
-        android:id="@+id/interview_refresh"
+        android:id="@+id/collection_knowledge_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <com.scwang.smart.refresh.header.TwoLevelHeader
@@ -17,19 +17,10 @@
             >
         </com.scwang.smart.refresh.header.TwoLevelHeader>
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/interview_recycler"
+            android:id="@+id/collection_knowledge_recycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     </com.scwang.smart.refresh.layout.SmartRefreshLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/interview_floatingButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="20dp"
-        android:src="@drawable/ic_baseline_add_24"
-        />
+
 </RelativeLayout>

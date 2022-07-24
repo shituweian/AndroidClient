@@ -38,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
 
+
+
         BottomNavigationView navView = findViewById(R.id.nav_view);
 
 
@@ -52,8 +54,6 @@ public class MainActivity extends AppCompatActivity {
 
         information_email=findViewById(R.id.information_email);
         information_username=findViewById(R.id.information_username);
-
-
 
 
     }

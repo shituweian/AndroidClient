@@ -125,10 +125,10 @@ public class KnowledgeFragment extends Fragment {
         });
 
         mData = new ArrayList<>();
+        initData();
         volleyPostInitial(binding.getRoot());
 
         super.onStart();
-        initData();
         handlerDownPullUpdate();
 
         return root;
@@ -150,7 +150,6 @@ public class KnowledgeFragment extends Fragment {
                         //adapter.notifyDataSetChanged();
                         //adapter.add(data, 0);
                         currentPage++;
-                        Toast.makeText(context, "fresh", Toast.LENGTH_SHORT).show();
                         volleyPostInitial(binding.getRoot());
                         mRefreshLayout.finishRefresh(600);
                     }
@@ -184,7 +183,6 @@ public class KnowledgeFragment extends Fragment {
 
             @Override
             public void onItemClick(int position) {
-                Toast.makeText(getContext(), "您点击的是第" + position + "个条目", Toast.LENGTH_SHORT).show();
                 Intent intent =new Intent(getActivity(), activity_knowledge.class);
                 intent.putExtra("knowledge",(Serializable) mData.get(position));
                 startActivity(intent);
@@ -195,7 +193,6 @@ public class KnowledgeFragment extends Fragment {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
                 currentPage++;
-                Toast.makeText(context, "fresh", Toast.LENGTH_SHORT).show();
                 volleyPostInitial(binding.getRoot());
                 mRefreshLayout.finishLoadMore(600);
             }
@@ -220,8 +217,6 @@ public class KnowledgeFragment extends Fragment {
         map.put("pageThird", 1);
         map.put("pageSizeThird", 5);
         map.put("type", 0);
-        map.put("tag1", 0);
-        map.put("tag2", 0);
         JSONObject jsonObject = new JSONObject(map);
         JsonRequest<JSONObject> str = new JsonObjectRequest(Request.Method.POST, "http://120.77.98.16:8080/knowledge_load", jsonObject,
                 new Response.Listener<JSONObject>() {
@@ -280,7 +275,6 @@ public class KnowledgeFragment extends Fragment {
                                     bean.setComments(commentBeanList);
                                     adapter.add(bean, mData.size());
                                 }
-                                Toast.makeText(context, "success", Toast.LENGTH_SHORT).show();
 
                                 recyclerView.scrollToPosition(mData.size()-1);
 

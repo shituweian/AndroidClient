@@ -21,7 +21,57 @@
         android:layout_marginTop="10dp"
         android:orientation="vertical">
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="27dp"
+            android:layout_marginLeft="18dp"
+            >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <cn.carbs.android.avatarimageview.library.AvatarImageView
+                    android:id="@+id/knowledge_list_avatar"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:padding="1dp"
+                    app:aiv_BoarderWidth="2dp"
+                    app:aiv_ShowBoarder="true"
+                    app:aiv_TextSizeRatio="0.4"/>
+
         <me.codeboy.android.aligntextview.AlignTextView
+            android:id="@+id/knowledge_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="hello"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="8dp"
+            app:align="left" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/knowledge_list_detail"
+                android:layout_width="70dp"
+                android:layout_height="30dp"
+                android:text="detail"
+                android:textSize="9sp"
+                android:textColor="@color/white"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="14dp"
+                />
+
+        </RelativeLayout>
+
+        <!--me.codeboy.android.aligntextview.AlignTextView
             android:id="@+id/knowledge_question"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -31,51 +81,84 @@
             android:layout_marginRight="10dp"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
-            />
+            / -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="-30dp"
+            android:layout_marginLeft="-25dp"
+            android:layout_marginRight="-25dp"
+            android:layout_marginBottom="-60dp"
+            >
+
+        <br.tiagohm.markdownview.MarkdownView
+            android:id="@+id/knowledge_question"
+            app:escapeHtml="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        </LinearLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             >
 
             <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_alignParentLeft="true">
+                android:layout_alignParentStart="true">
 
-                <com.github.rubensousa.raiflatbutton.RaiflatButton
+                <me.codeboy.android.aligntextview.AlignTextView
                     android:id="@+id/knowledge_tag"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
                     android:text="Colored"
-                    android:textColor="@color/white"
-                    style="@style/newButton"/>
+                    android:textSize="16sp"/>
 
-                <com.github.rubensousa.raiflatbutton.RaiflatButton
+                <me.codeboy.android.aligntextview.AlignTextView
                     android:id="@+id/knowledge_company"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
                     android:text="Colored"
-                    android:textColor="@color/white"
-                    style="@style/newButton"/>
+                    android:textSize="16sp"/>
 
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
 
-            <me.codeboy.android.aligntextview.AlignTextView
+            <!--me.codeboy.android.aligntextview.AlignTextView
                 android:id="@+id/knowledge_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:gravity="center_vertical"
                 android:text="hello"
-                android:textSize="18sp"
-                app:align="right" />
+                android:textSize="16sp"
+                app:align="right" /-->
+
+
+                <com.sackcentury.shinebuttonlib.ShineButton
+                    android:id="@+id/knowledge_list_like"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@android:color/darker_gray"
+                    android:layout_marginBottom="7dp"
+                    android:layout_marginRight="7dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    app:allow_random_color="false"
+                    app:btn_color="@android:color/darker_gray"
+                    app:btn_fill_color="@android:color/holo_red_light"
+                    app:siShape="@raw/heart" />
+
 
         </RelativeLayout>
 

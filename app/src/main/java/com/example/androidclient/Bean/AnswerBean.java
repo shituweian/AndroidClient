@@ -18,7 +18,8 @@ public class AnswerBean implements BasedBean_knowledge_detail{
         this.providerId=providerId;
         this.userName=userName;
         this.content=content;
-        this.uploadTime=uploadTime;
+        this.uploadTime=uploadTime.substring(0,uploadTime.indexOf('.'));
+        this.uploadTime=this.uploadTime.replace('T',' ');
     }
 
     public String getKnowledgeAnswer_id(){

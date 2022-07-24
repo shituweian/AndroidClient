@@ -1,6 +1,11 @@
 package com.example.androidclient.Bean;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class KnowledgeBean implements Serializable {
@@ -30,6 +35,23 @@ public class KnowledgeBean implements Serializable {
     }
 
     public KnowledgeBean(String knowledge_id, String question_content, String answer_list, String user_id, String interview_id,
+                         String username, String comment__list, String company, String tag, String uploadTime, int isliked) {
+        this.knowledge_id = knowledge_id;
+        this.question_content = question_content;
+        this.answer_list = answer_list;
+        this.user_id = user_id;
+        this.interview_id = interview_id;
+        this.username = username;
+        this.comment__list = comment__list;
+        this.company = company;
+        this.tag = tag;
+        this.uploadTime = uploadTime.substring(0,uploadTime.indexOf('.'));
+        this.uploadTime=this.uploadTime.replace('T',' ');
+        this.isliked=isliked;
+    }
+
+
+    public KnowledgeBean(String knowledge_id, String question_content, String answer_list, String user_id, String interview_id,
                          String username, String comment__list, String company, String tag, String uploadTime, int isliked, int answer_currentPage,
                          int answer_pageSize, int answer_totalRecord, int comment_currentPage, int comment_pageSize, int comment_totalRecord) {
         this.knowledge_id = knowledge_id;
@@ -41,7 +63,8 @@ public class KnowledgeBean implements Serializable {
         this.comment__list = comment__list;
         this.company = company;
         this.tag = tag;
-        this.uploadTime = uploadTime;
+        this.uploadTime = uploadTime.substring(0,uploadTime.indexOf('.'));
+        this.uploadTime=this.uploadTime.replace('T',' ');
         this.isliked=isliked;
         this.answer_currentPage=answer_currentPage;
         this.answer_pageSize=answer_pageSize;
@@ -73,6 +96,39 @@ public class KnowledgeBean implements Serializable {
         this.comment_currentPage=comment_currentPage;
         this.comment_pageSize=comment_pageSize;
         this.comment_totalRecord=comment_totalRecord;
+    }
+
+    public KnowledgeBean(JSONObject buffer) throws JSONException {
+        this(buffer.get("knowledgeId").toString(), buffer.get("question_content").toString(),
+                buffer.get("answer_list").toString(), buffer.get("userid").toString(), buffer.get("interviewId").toString(), buffer.get("userName").toString(),
+                buffer.get("comment_list").toString(), buffer.get("company").toString(), buffer.get("tag").toString(),
+                buffer.get("uploadTime").toString(), (Integer) buffer.get("isLiked"),0,0,0,0,0,0);
+        /*try {
+             JSONObject comments = buffer.getJSONObject("comments");
+            JSONObject comment_queryInfo = comments.getJSONObject("queryInfo");
+            JSONArray comment_array = comments.getJSONArray("entities");
+            this.comments = new ArrayList<>();
+            for (int j = 0; j < comment_array.length(); j++) {
+                JSONObject comment = comment_array.getJSONObject(j);
+                CommentBean commentBean = new CommentBean(comment.get("knowledgeCommentId").toString(), comment.get("knowledgeId").toString(),
+                        comment.get("providerId").toString(), comment.get("userName").toString(), comment.get("content").toString(), comment.get("uploadTime").toString());
+                this.comments.add(commentBean);
+            }
+            JSONObject answers = buffer.getJSONObject("answers");
+            JSONObject answer_queryInfo = answers.getJSONObject("queryInfo");
+            JSONArray answer_array = answers.getJSONArray("entities");
+            this.answers = new ArrayList<>();
+            for (int j = 0; j < answer_array.length(); j++) {
+                JSONObject answer = answer_array.getJSONObject(j);
+                AnswerBean answerBean = new AnswerBean(answer.get("knowledgeAnswerId").toString(), answer.get("knowledgeId").toString(), answer.get("providerId").toString(),
+                        answer.get("userName").toString(), answer.get("content").toString(), answer.get("uploadTime").toString());
+                this.answers.add(answerBean);
+            }
+
+
+        }catch(Exception e){
+
+    }*/
     }
 
     public void setQuestion_content(String Question_content) {
@@ -159,7 +215,7 @@ public class KnowledgeBean implements Serializable {
         return comment__list;
     }
 
-    public int getIsliked(){
+    public int getIsLiked(){
         return isliked;
     }
 

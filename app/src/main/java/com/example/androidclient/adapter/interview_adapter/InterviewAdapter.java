@@ -1,17 +1,12 @@
-package com.example.androidclient.adapter;
+package com.example.androidclient.adapter.interview_adapter;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.airbnb.lottie.LottieAnimationView;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -19,49 +14,46 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.androidclient.Bean.InterviewBean;
 import com.example.androidclient.Bean.KnowledgeBean;
 import com.example.androidclient.R;
-import com.example.androidclient.activity_knowledge;
+import com.example.androidclient.adapter.KnowledgeBasedAdapter;
 import com.example.androidclient.applicationContent.userProfile;
-import com.github.rubensousa.raiflatbutton.RaiflatButton;
 import com.sackcentury.shinebuttonlib.ShineButton;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import br.tiagohm.markdownview.MarkdownView;
-import br.tiagohm.markdownview.css.styles.Github;
-import cn.carbs.android.avatarimageview.library.AvatarImageView;
 import me.codeboy.android.aligntextview.AlignTextView;
 
-public abstract class KnowledgeBasedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class InterviewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    protected final List<KnowledgeBean> mData;
+    protected final List<InterviewBean> mData;
     private OnItemClickListener mOnItemClickListener;
     private userProfile profile;
 
-    public KnowledgeBasedAdapter(List<KnowledgeBean> mData) {
+    public InterviewAdapter(List<InterviewBean> mData) {
         this.mData = mData;
     }
 
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = getSubView(parent, viewType);
-        return new KnowledgeInnerHolder(view);
+        return new InterviewInnerHolder(view);
     }
 
-
-    protected abstract View getSubView(ViewGroup parent, int viewType);
+    protected View getSubView(ViewGroup parent, int viewType) {
+        View view = View.inflate(parent.getContext(), R.layout.interview_list_view, null);
+        return view;
+    }
 
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        ((KnowledgeInnerHolder) holder).setData(mData.get(position), position);
+        ((InterviewInnerHolder) holder).setData(mData.get(position), position);
     }
 
-    @Override
     public int getItemCount() {
         if (mData != null) {
             return mData.size();
@@ -77,39 +69,56 @@ public abstract class KnowledgeBasedAdapter extends RecyclerView.Adapter<Recycle
         void onItemClick(int position);
     }
 
-    public class KnowledgeInnerHolder extends RecyclerView.ViewHolder {
+    public void remove(int position) {
+        mData.remove(position);
+        notifyItemRemoved(position);
+    }
 
-        private MarkdownView question;
-        private AlignTextView tag;
+    public void add(InterviewBean interview, int position) {
+        mData.add(position, interview);
+        notifyItemInserted(position);
+    }
+
+
+    public class InterviewInnerHolder extends RecyclerView.ViewHolder {
+
+        private AlignTextView title;
+        private AlignTextView provider_name;
         private AlignTextView company;
-        private AlignTextView username;
-        private AvatarImageView avatar;
-        private ShineButton liked;
+        private AlignTextView uploadtime;
+        private AlignTextView description;
+        private AlignTextView position;
+        private AlignTextView location;
+        private AlignTextView question_number;
         private RequestQueue requestQueue;
-        private Button detail;
-        private String knowledge_id;
-        private KnowledgeBean knowledgeBean;
-        private int position;
-        private int isliked;
+        private AlignTextView level;
+        private ShineButton liked;
+        private int isLiked;
+        private InterviewBean interviewBean;
+        private int position_in_data;
 
-        public KnowledgeInnerHolder(View itemView) {
+        public InterviewInnerHolder(View itemView) {
             super(itemView);
             profile = (userProfile) itemView.getContext().getApplicationContext();
-            question = (MarkdownView) itemView.findViewById(R.id.knowledge_question);
-            question.addStyleSheet(new Github());
-            tag = itemView.findViewById(R.id.knowledge_tag);
-            company = itemView.findViewById(R.id.knowledge_company);
-            liked = itemView.findViewById(R.id.knowledge_list_like);
-            requestQueue = Volley.newRequestQueue(itemView.getContext());
-            username = itemView.findViewById(R.id.knowledge_username);
-            detail = itemView.findViewById(R.id.knowledge_list_detail);
-            avatar=itemView.findViewById(R.id.knowledge_list_avatar);
-            avatar.setTextAndColorSeed("gsw","gsw");
+
+            requestQueue = com.android.volley.toolbox.Volley.newRequestQueue(itemView.getContext());
+
+            title = itemView.findViewById(R.id.interview_title);
+            provider_name = itemView.findViewById(R.id.interview_provider_name);
+            company = itemView.findViewById(R.id.interview_company);
+            uploadtime = itemView.findViewById(R.id.interview_uploadtime);
+            description = itemView.findViewById(R.id.interview_description);
+            position = itemView.findViewById(R.id.interview_position);
+            location = itemView.findViewById(R.id.interview_location);
+            question_number = itemView.findViewById(R.id.interview_question_number);
+            level = itemView.findViewById(R.id.interview_level);
+            liked = itemView.findViewById(R.id.interview_list_like);
 
             itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
                 public void onClick(View view) {
                     if (mOnItemClickListener != null) {
-                        mOnItemClickListener.onItemClick(position);
+                        mOnItemClickListener.onItemClick(position_in_data);
                     }
                 }
             });
@@ -120,63 +129,51 @@ public abstract class KnowledgeBasedAdapter extends RecyclerView.Adapter<Recycle
                     VolleyPost(view);
                 }
             });
-
-            detail.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent =new Intent(view.getContext(), activity_knowledge.class);
-                    intent.putExtra("knowledge",(Serializable) knowledgeBean);
-                    view.getContext().startActivity(intent);
-                }
-            });
-
         }
 
-        public void setData(KnowledgeBean knowledgeBean) {
-            this.knowledgeBean = knowledgeBean;
-            knowledge_id = knowledgeBean.getKnowledge_id();
-            question.loadMarkdown(knowledgeBean.getQuestion_content());
-            tag.setText(" " + knowledgeBean.getTag() + " ");
-            company.setText(" " + knowledgeBean.getCompany() + " ");
-            isliked = knowledgeBean.getIsLiked();
-            if (isliked == 0) {
+        public void setData(InterviewBean interviewBean) {
+            this.interviewBean = interviewBean;
+            title.setText(interviewBean.getTitle());
+            provider_name.setText(interviewBean.getProvider_name());
+            company.setText(interviewBean.getCompany());
+            uploadtime.setText(interviewBean.getUploadtime());
+            description.setText(interviewBean.getDescription());
+            position.setText(interviewBean.getPosition());
+            location.setText(interviewBean.getLocation());
+            question_number.setText(interviewBean.getQuestion_total());
+            level.setText(interviewBean.getLevel());
+            isLiked = interviewBean.getIsliked();
+            if (isLiked == 0) {
                 liked.setChecked(false);
             } else {
                 liked.setChecked(true);
             }
-            username.setText(knowledgeBean.getUsername());
-            if(knowledgeBean.getUsername().length()>=3) {
-                avatar.setTextAndColorSeed(knowledgeBean.getUsername().substring(0,3),knowledgeBean.getUsername().substring(0,3));
-            }else{
-                avatar.setTextAndColorSeed(knowledgeBean.getUsername(),knowledgeBean.getUsername());
-            }
         }
 
-        public void setData(KnowledgeBean knowledgeBean, int position) {
-            this.knowledgeBean = knowledgeBean;
-            knowledge_id = knowledgeBean.getKnowledge_id();
-            this.position = position;
-            question.loadMarkdown(knowledgeBean.getQuestion_content());
-            tag.setText(knowledgeBean.getTag());
-            company.setText(knowledgeBean.getCompany());
-            isliked = knowledgeBean.getIsLiked();
-            if (isliked == 0) {
+        public void setData(InterviewBean interviewBean, int position_in_data) {
+            this.interviewBean = interviewBean;
+            this.position_in_data = position_in_data;
+            title.setText(interviewBean.getTitle());
+            provider_name.setText(interviewBean.getProvider_name());
+            company.setText(interviewBean.getCompany());
+            uploadtime.setText(interviewBean.getUploadtime());
+            description.setText(interviewBean.getDescription());
+            position.setText(interviewBean.getPosition());
+            location.setText(interviewBean.getLocation());
+            question_number.setText(String.valueOf(interviewBean.getQuestion_total()));
+            level.setText(interviewBean.getLevel());
+            isLiked = interviewBean.getIsliked();
+            if (isLiked == 0) {
                 liked.setChecked(false);
             } else {
                 liked.setChecked(true);
-            }
-            username.setText(knowledgeBean.getUsername());
-            if(knowledgeBean.getUsername().length()>=3) {
-                avatar.setTextAndColorSeed(knowledgeBean.getUsername().substring(0,3),knowledgeBean.getUsername().substring(0,3));
-            }else{
-                avatar.setTextAndColorSeed(knowledgeBean.getUsername(),knowledgeBean.getUsername());
             }
         }
 
         public void VolleyPost(View v) {
             Map<String, Object> map = new HashMap<>();
-            map.put("id", knowledge_id);
-            map.put("type", 0);
+            map.put("id", interviewBean.getInterview_id());
+            map.put("type", 1);
             JSONObject jsonObject = new JSONObject(map);
             JsonRequest<JSONObject> str = new JsonObjectRequest(Request.Method.POST, "http://120.77.98.16:8080/users_like", jsonObject,
                     new Response.Listener<JSONObject>() {
@@ -188,16 +185,19 @@ public abstract class KnowledgeBasedAdapter extends RecyclerView.Adapter<Recycle
                                 if (code.equals("00")) {
                                     Toast.makeText(v.getContext(), "like", Toast.LENGTH_SHORT).show();
                                     liked.setChecked(true);
-                                    isliked = 10;
+                                    isLiked = 10;
 
 
                                 } else if (code.equals("11")) {
                                     Toast.makeText(v.getContext(), "dislike", Toast.LENGTH_SHORT).show();
                                     liked.setChecked(false);
-                                    isliked = 0;
+                                    isLiked = 0;
+                                }else{
+                                    Toast.makeText(v.getContext(), code, Toast.LENGTH_SHORT).show();
+
                                 }
                             } catch (JSONException e) {
-
+                                Toast.makeText(v.getContext(), e.toString(), Toast.LENGTH_SHORT).show();
                             }
                         }
                     }, new Response.ErrorListener() {
@@ -218,7 +218,6 @@ public abstract class KnowledgeBasedAdapter extends RecyclerView.Adapter<Recycle
             };
             requestQueue.add(str);
         }
-
 
     }
 

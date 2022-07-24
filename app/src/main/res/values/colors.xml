@@ -11,5 +11,6 @@
     <color name="waited_gray">#8f8f8f</color>
     <color name="web_blue">#1976D2</color>
     <color name="background">#F5F5F5</color>
+    <color name="time_color">#6699FF</color>
 
 </resources>

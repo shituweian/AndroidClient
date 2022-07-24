@@ -7,7 +7,7 @@
 
 
         <com.scwang.smart.refresh.layout.SmartRefreshLayout
-            android:id="@+id/activity_knowledge_swipe"
+            android:id="@+id/activity_knowledge_swipe_answer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
@@ -19,7 +19,7 @@
                 app:srlPrimaryColor="@color/web_blue"/>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/knowledge_activity_recyclerView"
+                android:id="@+id/knowledge_activity_recyclerView_answer"
                 android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
@@ -29,6 +29,32 @@
 
 
         </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+
+
+    <com.scwang.smart.refresh.layout.SmartRefreshLayout
+        android:id="@+id/activity_knowledge_swipe_comment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:layout_above="@+id/activity_knowledge_reply"
+        android:visibility="gone">
+
+        <com.scwang.smart.refresh.header.BezierRadarHeader
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:srlPrimaryColor="@color/web_blue"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/knowledge_activity_recyclerView_comment"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="0dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+
+    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
 
 
 
@@ -52,7 +78,7 @@
         android:layout_marginTop="5dp"
         app:iconSignifier="@drawable/ic_baseline_autorenew_24"
         app:endIcon="@drawable/ic_baseline_reply_24"
-        app:labelText="COMMENT"
+        app:labelText="ANSWER"
         app:panelBackgroundColor="#00FFFFFF"
         app:hasClearButton="true">
 

@@ -27,6 +27,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.androidclient.Bean.BasedBean_knowledge_detail;
 import com.example.androidclient.Bean.KnowledgeBean;
 import com.example.androidclient.adapter.LoadMoreAdapter;
+import com.example.androidclient.adapter.knowledge_detailed_adapter.KnowledgeAnswerAdapter;
 import com.example.androidclient.adapter.knowledge_detailed_adapter.KnowledgeDetailedBasedAdapter;
 import com.example.androidclient.applicationContent.userProfile;
 import com.scwang.smart.refresh.footer.BallPulseFooter;
@@ -51,17 +52,23 @@ public class activity_knowledge extends Activity {
     RequestQueue requestQueue;
     private userProfile profile;
 
-    private RecyclerView recyclerView;
+    private RecyclerView recyclerView_answer;
+
+    private RecyclerView recyclerView_comment;
 
     private KnowledgeBean knowledge;
 
-    private KnowledgeDetailedBasedAdapter adapter;
+    private KnowledgeDetailedBasedAdapter adapter_comment;
+
+    private KnowledgeAnswerAdapter adapter_answer;
 
     private TextFieldBoxes reply_box;
 
     private ExtendedEditText reply;
 
-    private SmartRefreshLayout swipe;
+    private SmartRefreshLayout swipe_answer;
+
+    private SmartRefreshLayout swipe_comment;
 
     private final String[] change = new String[]{"COMMENT", "ANSWER"};
 
@@ -71,30 +78,50 @@ public class activity_knowledge extends Activity {
         requestQueue = Volley.newRequestQueue(this);
         Intent intent = getIntent();
         knowledge = (KnowledgeBean) intent.getSerializableExtra("knowledge");
-        recyclerView = findViewById(R.id.knowledge_activity_recyclerView);
+
+
+        recyclerView_answer = findViewById(R.id.knowledge_activity_recyclerView_answer);
+        recyclerView_comment=findViewById(R.id.knowledge_activity_recyclerView_comment);
+
         reply_box = findViewById(R.id.activity_knowledge_box);
         reply = findViewById(R.id.activity_knowledge_extend);
         profile=(userProfile)getApplicationContext();
-        swipe=findViewById(R.id.activity_knowledge_swipe);
+        swipe_answer=findViewById(R.id.activity_knowledge_swipe_answer);
+        swipe_comment=findViewById(R.id.activity_knowledge_swipe_comment);
 
 
-        swipe.setRefreshFooter(new BallPulseFooter(this));
-
-        recyclerView.setOnTouchListener(new View.OnTouchListener() {
+        swipe_answer.setRefreshFooter(new BallPulseFooter(this));
+        swipe_comment.setRefreshFooter(new BallPulseFooter(this));
+        recyclerView_answer.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 reply_box.clearFocus();
                 return false;
             }
         });
-        recyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
+
+        recyclerView_comment.setOnTouchListener(new View.OnTouchListener(){
+            public boolean onTouch(View view, MotionEvent motionEvent){
+                reply_box.clearFocus();
+                return false;
+            }
+        });
+
+        recyclerView_answer.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
+        recyclerView_comment.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
+
+
         reply_box.getIconImageButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (reply_box.getLabelText().equals(change[0])) {
                     reply_box.setLabelText(change[1]);
+                    swipe_answer.setVisibility(View.VISIBLE);
+                    swipe_comment.setVisibility(View.GONE);
                 } else {
                     reply_box.setLabelText(change[0]);
+                    swipe_answer.setVisibility(View.GONE);
+                    swipe_comment.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -122,24 +149,43 @@ public class activity_knowledge extends Activity {
 
     public void onStart() {
         super.onStart();
-        initData();
+        initData_answer();
+        initData_comment();
     }
 
-    public void initData() {
+    public void initData_answer() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-        adapter = new KnowledgeDetailedBasedAdapter(knowledge);
-        recyclerView.setAdapter(adapter);
+        recyclerView_answer.setLayoutManager(layoutManager);
+        adapter_answer = new KnowledgeAnswerAdapter(knowledge);
+        recyclerView_answer.setAdapter(adapter_answer);
         LandingAnimator animator = new LandingAnimator();
 
-        recyclerView.setItemAnimator(animator);
+        recyclerView_answer.setItemAnimator(animator);
 
-        AlphaInAnimationAdapter alphaInAnimationAdapter = new AlphaInAnimationAdapter(adapter);
+        AlphaInAnimationAdapter alphaInAnimationAdapter = new AlphaInAnimationAdapter(adapter_answer);
         alphaInAnimationAdapter.setDuration(1000);
         alphaInAnimationAdapter.setInterpolator(new OvershootInterpolator());
         alphaInAnimationAdapter.setFirstOnly(false);
 
-        recyclerView.setAdapter(new ScaleInAnimationAdapter(alphaInAnimationAdapter));
+        recyclerView_answer.setAdapter(new ScaleInAnimationAdapter(alphaInAnimationAdapter));
+
+    }
+
+    public void initData_comment() {
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView_comment.setLayoutManager(layoutManager);
+        adapter_comment = new KnowledgeDetailedBasedAdapter(knowledge);
+        recyclerView_comment.setAdapter(adapter_comment);
+        LandingAnimator animator = new LandingAnimator();
+
+        recyclerView_comment.setItemAnimator(animator);
+
+        AlphaInAnimationAdapter alphaInAnimationAdapter = new AlphaInAnimationAdapter(adapter_comment);
+        alphaInAnimationAdapter.setDuration(1000);
+        alphaInAnimationAdapter.setInterpolator(new OvershootInterpolator());
+        alphaInAnimationAdapter.setFirstOnly(false);
+
+        recyclerView_comment.setAdapter(new ScaleInAnimationAdapter(alphaInAnimationAdapter));
 
     }
 

@@ -55,8 +55,8 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder>{
         TextView time;
         public ViewHolder(View itemview){
             super(itemview);
-            name=itemview.findViewById(R.id.listview_name);
-            time=itemView.findViewById(R.id.listview_time);
+            //name=itemview.findViewById(R.id.listview_name);
+            //time=itemView.findViewById(R.id.listview_time);
         }
 
     }

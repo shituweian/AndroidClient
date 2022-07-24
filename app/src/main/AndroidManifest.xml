@@ -14,21 +14,28 @@
         android:theme="@style/Theme.AndroidClient"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".MainActivity"
+            android:name=".MainActivity">
+
+
+        </activity>
+        <activity android:name=".activity_profile_changing"/>
+        <activity android:name=".activity_register"/>
+        <activity android:name=".activity_login_in"
             android:exported="true"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity_profile_changing"/>
-        <activity android:name=".activity_register"/>
-        <activity android:name=".activity_login_in"/>
-        <activity android:name=".ButtonMain"/>
         <activity android:name=".activity_knowledge"/>
         <activity android:name=".activity_knowledge_add"/>
+        <activity android:name=".test"/>
+        <activity android:name=".activity_interview"/>
+        <activity android:name=".mycollection.activity_interview_collection"/>
+        <activity android:name=".mycollection.activity_knowledge_collection"/>
     </application>
 
 </manifest>

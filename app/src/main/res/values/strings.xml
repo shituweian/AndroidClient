@@ -2,6 +2,6 @@
     <string name="app_name">AndroidClient</string>
     <string name="title_home">Homepage</string>
     <string name="title_dashboard">Knowledge</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_notifications">Interview</string>
     <string name="title_information">Profile</string>
 </resources>

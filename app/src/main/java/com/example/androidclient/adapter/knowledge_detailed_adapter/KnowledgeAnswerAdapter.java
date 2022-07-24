@@ -1,18 +1,14 @@
 package com.example.androidclient.adapter.knowledge_detailed_adapter;
 
-import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidclient.Bean.AnswerBean;
 import com.example.androidclient.Bean.BasedBean_knowledge_detail;
-import com.example.androidclient.Bean.CommentBean;
 import com.example.androidclient.Bean.KnowledgeBean;
-import com.example.androidclient.Const;
 import com.example.androidclient.R;
 
 import java.util.ArrayList;
@@ -22,7 +18,7 @@ import br.tiagohm.markdownview.MarkdownView;
 import br.tiagohm.markdownview.css.styles.Github;
 import me.codeboy.android.aligntextview.AlignTextView;
 
-public class KnowledgeDetailedBasedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+public class KnowledgeAnswerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     protected final List<BasedBean_knowledge_detail> mData;
     protected final KnowledgeBean knowledgeBean;
@@ -32,23 +28,22 @@ public class KnowledgeDetailedBasedAdapter extends RecyclerView.Adapter<Recycler
     public static final int TYPE_KNOWLEDGE=0;
     public static final int TYPE_COMMENT_ANSWER=1;
 
-
-    public KnowledgeDetailedBasedAdapter(KnowledgeBean knowledgeBean) {
+    public KnowledgeAnswerAdapter(KnowledgeBean knowledgeBean)
+    {
         mData=new ArrayList<>();
-        List<CommentBean> comments=knowledgeBean.getComments();
-
-        for(CommentBean comment:comments){
-            mData.add(comment);
+        List<AnswerBean> answers=knowledgeBean.getAnswers();
+        for(AnswerBean answer: answers){
+            mData.add(answer);
         }
         this.knowledgeBean=knowledgeBean;
-        total=comments.size();
+        total=answers.size();
     }
 
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
-        View view=getSubView(parent, viewType);
+        View view =getSubView(parent, viewType);
         if(viewType==TYPE_KNOWLEDGE){
             return new Knowledge_detail_InnerHolder(view);
-        }else {
+        }else{
             return new Knowledge_comment_InnerHolder(view);
         }
     }
@@ -56,12 +51,13 @@ public class KnowledgeDetailedBasedAdapter extends RecyclerView.Adapter<Recycler
     protected View getSubView(ViewGroup parent, int viewType){
         View view;
         if(viewType==TYPE_KNOWLEDGE){
-            view=View.inflate(parent.getContext(),R.layout.knowledge_list_view_detail,null);
-            }else{
+            view=View.inflate(parent.getContext(), R.layout.knowledge_list_view_detail,null);
+        }else{
             view=View.inflate(parent.getContext(),R.layout.knowledge_list_view_comment,null);
         }
         return view;
     }
+
 
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position){
         if(getItemViewType(position)==TYPE_KNOWLEDGE && holder instanceof Knowledge_detail_InnerHolder) {
@@ -78,8 +74,6 @@ public class KnowledgeDetailedBasedAdapter extends RecyclerView.Adapter<Recycler
             return TYPE_COMMENT_ANSWER;
         }
     }
-
-
 
     public int getItemCount(){
         if(mData!=null){
@@ -108,7 +102,7 @@ public class KnowledgeDetailedBasedAdapter extends RecyclerView.Adapter<Recycler
             super(itemView);
             name=itemView.findViewById(R.id.knowledge_detailed_name);
             time=itemView.findViewById(R.id.knowledge_detailed_time);
-            question_content=(MarkdownView) itemView.findViewById(R.id.knowledge_detailed_question_content);
+            question_content=itemView.findViewById(R.id.knowledge_detailed_question_content);
             question_content.addStyleSheet(new Github());
             tag=itemView.findViewById(R.id.knowledge_detailed_tag);
             company=itemView.findViewById(R.id.knowledge_detailed_company);
