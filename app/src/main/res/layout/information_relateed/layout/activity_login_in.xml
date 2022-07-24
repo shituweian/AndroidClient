@@ -6,121 +6,115 @@
     android:layout_height="match_parent"
     android:background="@color/background"
     tools:context=".ui.informations.InformationFragment">
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardUseCompatPadding="true"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="60dp"
         app:cardCornerRadius="5dp"
         app:cardElevation="3dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginBottom="60dp"
-        android:layout_centerInParent="true"
-        >
+        app:cardUseCompatPadding="true">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="20dp"
-            >
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginTop="0dp"
-        android:orientation="vertical"
-        android:layout_centerInParent="true"
-        >
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_marginTop="20dp">
 
-            <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/lottieAnimationView"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="40dp"
                 android:layout_marginTop="0dp"
-                app:lottie_rawRes="@raw/email"
-                app:lottie_autoPlay="true"
-                app:lottie_loop="true"
-                android:layout_alignParentStart="true"/>
+                android:layout_marginRight="40dp"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/lottieAnimationView"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginTop="0dp"
+                        app:lottie_autoPlay="true"
+                        app:lottie_loop="true"
+                        app:lottie_rawRes="@raw/email" />
 
 
-        <TextView
-            android:layout_width="150dp"
-            android:layout_height="45dp"
-            android:text="LOGIN   IN"
-            android:layout_marginEnd="15dp"
-            android:layout_marginTop="30dp"
-            android:layout_alignParentEnd="true"
-            android:gravity="center"
-            android:textSize="22sp"
-            />
+                    <TextView
+                        android:layout_width="150dp"
+                        android:layout_height="45dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginEnd="15dp"
+                        android:gravity="center"
+                        android:text="LOGIN   IN"
+                        android:textSize="22sp" />
 
 
-        </RelativeLayout>
+                </RelativeLayout>
 
 
+                <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+                    android:id="@+id/login_email_box"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:gravity="center"
+                    app:hasClearButton="true"
+                    app:iconSignifier="@drawable/ic_mail"
+                    app:labelText="EMAIL"
+                    app:panelBackgroundColor="#00FFFFFF"
+                    app:singleLine="true">
 
-        <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
-            android:id="@+id/login_email_box"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginTop="25dp"
-            app:labelText="EMAIL"
-            app:panelBackgroundColor="#00FFFFFF"
-            app:iconSignifier="@drawable/ic_mail"
-            app:hasClearButton="true"
-            app:singleLine="true">
+                    <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                        android:id="@+id/login_email_extend"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        app:singleLine="true" />
 
-            <studio.carbonylgroup.textfieldboxes.ExtendedEditText
-                android:id="@+id/login_email_extend"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="text"
-                app:singleLine="true"/>
-
-        </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
-
-
-        <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
-            android:id="@+id/login_password_box"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginTop="45dp"
-            app:labelText="PASSWORD"
-            app:iconSignifier="@drawable/ic_key"
-            app:panelBackgroundColor="#00FFFFFF"
-            app:hasClearButton="true"
-            >
-
-            <studio.carbonylgroup.textfieldboxes.ExtendedEditText
-                android:id="@+id/login_password_extend"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                app:singleLine="true"
-                />
-
-        </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+                </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
 
 
+                <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+                    android:id="@+id/login_password_box"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="45dp"
+                    android:gravity="center"
+                    app:hasClearButton="true"
+                    app:iconSignifier="@drawable/ic_key"
+                    app:labelText="PASSWORD"
+                    app:panelBackgroundColor="#00FFFFFF">
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/login_login"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="0dp"
-            android:layout_gravity="center"
-            app:lottie_rawRes="@raw/touch"
-            />
+                    <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                        android:id="@+id/login_password_extend"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"
+                        app:singleLine="true" />
+
+                </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
 
 
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/login_login"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="0dp"
+                    app:lottie_rawRes="@raw/touch" />
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
         </RelativeLayout>
 
     </androidx.cardview.widget.CardView>

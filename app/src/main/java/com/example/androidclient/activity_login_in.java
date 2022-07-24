@@ -60,8 +60,6 @@ public class activity_login_in extends Activity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                login.setRepeatCount(1);
-                login.playAnimation();
                 volleyPost(login);
             }
         });
@@ -86,6 +84,8 @@ public class activity_login_in extends Activity {
                         }
                         if (code.equals("00")) {
 
+                            login.setRepeatCount(0);
+                            login.playAnimation();
                             try {
                                 profile.setToken(response.get("token").toString());
                                 profile.setEmail(email.getText().toString());
@@ -109,8 +109,18 @@ public class activity_login_in extends Activity {
                                 //startActivity(intent);
                                 //Toast.makeText(activity_login_in.this, data.get("email").toString(), Toast.LENGTH_SHORT).show();
                                 Intent intent1 =new Intent(activity_login_in.this,MainActivity.class);
-                                startActivity(intent1);
-                                finish();
+                                Thread thread=new Thread(){
+                                    public void run(){
+                                        try {
+                                            sleep((long)900);
+                                            startActivity(intent1);
+                                            finish();
+                                        } catch (InterruptedException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                };
+                                thread.start();
 
                             } catch (Exception e) {
                                 Toast.makeText(activity_login_in.this, e.toString(), Toast.LENGTH_SHORT).show();

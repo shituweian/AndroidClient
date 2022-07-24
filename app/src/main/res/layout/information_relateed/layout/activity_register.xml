@@ -4,276 +4,265 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/background"
+    android:orientation="vertical"
     tools:context=".ui.informations.InformationFragment">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardUseCompatPadding="true"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
         app:cardCornerRadius="5dp"
         app:cardElevation="3dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_centerInParent="true"
-        >
+        app:cardUseCompatPadding="true">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
-
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:layout_marginTop="0dp">
+            android:orientation="vertical">
 
-            <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/lottieAnimationView"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
                 android:layout_marginTop="0dp"
-                app:lottie_rawRes="@raw/register"
-                app:lottie_autoPlay="true"
-                app:lottie_loop="true"
-                android:layout_alignParentStart="true"/>
+                android:layout_marginRight="40dp">
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/lottieAnimationView"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="0dp"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"
+                    app:lottie_rawRes="@raw/register" />
 
 
-            <TextView
-                android:layout_width="150dp"
-                android:layout_height="45dp"
-                android:text="  REGISTER  "
-                android:layout_marginEnd="15dp"
-                android:layout_marginTop="30dp"
-                android:layout_alignParentEnd="true"
-                android:gravity="center"
-                android:textSize="22sp"
-                />
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="45dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginEnd="15dp"
+                    android:gravity="center"
+                    android:text="  REGISTER  "
+                    android:textSize="22sp" />
 
 
-        </RelativeLayout>
+            </RelativeLayout>
 
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
-        android:layout_marginTop="0dp">
-
-
-        <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
-            android:id="@+id/register_email_box"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginTop="0dp"
-            android:layout_centerInParent="true"
-            app:labelText="EMAIL"
-            app:panelBackgroundColor="#00FFFFFF"
-            app:iconSignifier="@drawable/ic_mail"
-            app:hasClearButton="true">
-
-            <studio.carbonylgroup.textfieldboxes.ExtendedEditText
-                android:id="@+id/register_email_extend"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:singleLine="true"
-                android:inputType="text"/>
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginRight="25dp">
 
-        </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
 
-    </RelativeLayout>
+                <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+                    android:id="@+id/register_email_box"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="0dp"
+                    android:gravity="center"
+                    app:hasClearButton="true"
+                    app:iconSignifier="@drawable/ic_mail"
+                    app:labelText="EMAIL"
+                    app:panelBackgroundColor="#00FFFFFF">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
-        android:layout_marginTop="20dp">
+                    <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                        android:id="@+id/register_email_extend"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        app:singleLine="true" />
 
-        <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
-            android:id="@+id/register_username_box"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginTop="0dp"
-            android:layout_centerInParent="true"
-            app:labelText="USER NAME"
-            app:panelBackgroundColor="#00FFFFFF"
-            app:iconSignifier="@drawable/ic_person"
-            app:hasClearButton="true">
+                </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
 
-            <studio.carbonylgroup.textfieldboxes.ExtendedEditText
-                android:id="@+id/register_username_extend"
-                android:layout_width="wrap_content"
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:singleLine="true"
-                android:inputType="text"/>
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="25dp">
 
-        </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+                <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+                    android:id="@+id/register_username_box"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="0dp"
+                    android:gravity="center"
+                    app:hasClearButton="true"
+                    app:iconSignifier="@drawable/ic_person"
+                    app:labelText="USER NAME"
+                    app:panelBackgroundColor="#00FFFFFF">
 
-    </RelativeLayout>
+                    <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                        android:id="@+id/register_username_extend"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        app:singleLine="true" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
-        android:layout_marginTop="20dp">
+                </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
 
-        <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
-            android:id="@+id/register_verification_box"
-            android:layout_width="240dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginTop="0dp"
-            android:layout_alignParentStart="true"
-            app:labelText="CODE"
-            app:panelBackgroundColor="#00FFFFFF"
-            app:iconSignifier="@drawable/ic_person"
-            app:hasClearButton="true">
+            </RelativeLayout>
 
-            <studio.carbonylgroup.textfieldboxes.ExtendedEditText
-                android:id="@+id/register_verification_extend"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:singleLine="true"
-                android:inputType="text"/>
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="25dp">
 
-        </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+                <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+                    android:id="@+id/register_verification_box"
+                    android:layout_width="240dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="0dp"
+                    android:gravity="center"
+                    app:hasClearButton="true"
+                    app:iconSignifier="@drawable/ic_person"
+                    app:labelText="CODE"
+                    app:panelBackgroundColor="#00FFFFFF">
 
-        <com.example.androidclient.ui.customButton.verifyCodeButton
-            android:id="@+id/register_verification_code"
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:layout_alignParentEnd="true"
-            android:background="@drawable/btn_bg"
-            android:textColor="#ffffff"
-            android:text="GET CODE"
-            app:waitedBackground="@drawable/btn_bg_waited"
-            app:countdownText="GET CODE"
-            app:countdownTime="90"
-            app:clickedBackground="@drawable/btn_bg_clicked"
-            />
+                    <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                        android:id="@+id/register_verification_extend"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        app:singleLine="true" />
 
-    </RelativeLayout>
+                </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
 
+                <com.example.androidclient.ui.customButton.verifyCodeButton
+                    android:id="@+id/register_verification_code"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:layout_alignParentEnd="true"
+                    android:background="@drawable/btn_bg"
+                    android:text="GET CODE"
+                    android:textColor="#ffffff"
+                    app:clickedBackground="@drawable/btn_bg_clicked"
+                    app:countdownText="GET CODE"
+                    app:countdownTime="90"
+                    app:waitedBackground="@drawable/btn_bg_waited" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
-        android:layout_marginTop="20dp">
-
-        <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
-            android:id="@+id/register_password_box"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginTop="0dp"
-            app:labelText="PASSWORD"
-            app:iconSignifier="@drawable/ic_key"
-            app:panelBackgroundColor="#00FFFFFF"
-            app:hasClearButton="true"
-            >
-
-        <studio.carbonylgroup.textfieldboxes.ExtendedEditText
-            android:id="@+id/register_password_extend"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            app:singleLine="true"
-            />
-        </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
-    </RelativeLayout>
+            </RelativeLayout>
 
 
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
-        android:layout_marginTop="20dp">
-
-        <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
-            android:id="@+id/register_password_confirm_box"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginTop="0dp"
-            app:labelText="PASSWORD"
-            app:iconSignifier="@drawable/ic_key"
-            app:panelBackgroundColor="#00FFFFFF"
-            app:hasClearButton="true"
-            app:helperText="Please enter password again"
-            >
-
-            <studio.carbonylgroup.textfieldboxes.ExtendedEditText
-                android:id="@+id/register_password_confirm_extend"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                app:singleLine="true"
-                />
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="25dp">
 
-        </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+                <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+                    android:id="@+id/register_password_box"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp"
+                    android:gravity="center"
+                    app:hasClearButton="true"
+                    app:iconSignifier="@drawable/ic_key"
+                    app:labelText="PASSWORD"
+                    app:panelBackgroundColor="#00FFFFFF">
 
-    </RelativeLayout>
-
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
-        android:layout_marginTop="40dp">
-
-
-        <Button
-            android:id="@+id/confirm"
-            android:layout_width="220dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="0dp"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/btn_bg"
-            android:text="CONFIRM"
-            android:textColor="#ffffff"
-            android:textSize="24sp"
-            />
+                    <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                        android:id="@+id/register_password_extend"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"
+                        app:singleLine="true" />
+                </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+            </RelativeLayout>
 
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="25dp">
+
+                <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+                    android:id="@+id/register_password_confirm_box"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp"
+                    android:gravity="center"
+                    app:hasClearButton="true"
+                    app:helperText="Please enter password again"
+                    app:iconSignifier="@drawable/ic_key"
+                    app:labelText="PASSWORD"
+                    app:panelBackgroundColor="#00FFFFFF">
+
+                    <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                        android:id="@+id/register_password_confirm_extend"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"
+                        app:singleLine="true" />
+
+                </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+
+            </RelativeLayout>
 
 
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="40dp">
-    <Button
-        android:id="@+id/code"
-        android:layout_width="220dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="0dp"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/selector_btn_click_bg"
-        android:text="code"
-        android:textColor="#ffffff"
-        android:textSize="24sp"
-        />
-    </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginRight="25dp">
 
-    </LinearLayout>
+
+                <Button
+                    android:id="@+id/confirm"
+                    android:layout_width="220dp"
+                    android:layout_height="40dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="0dp"
+                    android:background="@drawable/btn_bg"
+                    android:text="CONFIRM"
+                    android:textColor="#ffffff"
+                    android:textSize="24sp" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginRight="25dp"
+                android:layout_marginBottom="40dp">
+
+                <Button
+                    android:id="@+id/code"
+                    android:layout_width="220dp"
+                    android:layout_height="40dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="0dp"
+                    android:background="@drawable/selector_btn_click_bg"
+                    android:text="code"
+                    android:textColor="#ffffff"
+                    android:textSize="24sp" />
+            </RelativeLayout>
+
+        </LinearLayout>
     </androidx.cardview.widget.CardView>
 </androidx.core.widget.NestedScrollView>

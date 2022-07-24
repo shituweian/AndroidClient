@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardUseCompatPadding="true"
+    android:layout_marginTop="3dp"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackgroundBorderless"
     app:cardCornerRadius="3dp"
     app:cardElevation="3dp"
-    android:foreground="?android:attr/selectableItemBackgroundBorderless"
-    android:clickable="true"
+    app:cardUseCompatPadding="true"
     app:contentPaddingLeft="3dp"
     app:contentPaddingRight="3dp"
-    android:layout_marginTop="3dp"
-    app:strokeColor="@color/waited_gray"
     app:rippleColor="@color/teal_700"
+    app:strokeColor="@color/waited_gray"
     app:strokeWidth="0dp">
 
     <LinearLayout
@@ -25,63 +25,59 @@
             android:id="@+id/interview_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="title"
-            android:textSize="16sp"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            app:align="center"
             android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            />
+            android:text="title"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:align="center" />
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
+            android:layout_height="wrap_content">
 
             <me.codeboy.android.aligntextview.AlignTextView
                 android:id="@+id/interview_provider_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="provider name"
-                android:textSize="12sp"
-                app:align="left"
                 android:layout_alignParentStart="true"
                 android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
-                />
+                android:text="provider name"
+                android:textSize="12sp"
+                app:align="left" />
 
             <me.codeboy.android.aligntextview.AlignTextView
                 android:id="@+id/interview_company"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="company"
-                android:textSize="12sp"
-                app:align="center"
                 android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_toRightOf="@+id/interview_provider_name"/>
+                android:layout_toRightOf="@+id/interview_provider_name"
+                android:text="company"
+                android:textSize="12sp"
+                app:align="center" />
 
             <me.codeboy.android.aligntextview.AlignTextView
                 android:id="@+id/interview_uploadtime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="uploadtime"
-                android:textSize="12sp"
-                android:textColor="@color/time_color"
-                app:align="right"
                 android:layout_alignParentRight="true"
                 android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
-                />
+                android:text="uploadtime"
+                android:textColor="@color/time_color"
+                android:textSize="12sp"
+                app:align="right" />
 
         </RelativeLayout>
 
@@ -89,96 +85,92 @@
             android:id="@+id/interview_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="description"
-            android:textSize="16sp"
-            app:align="left"
             android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            />
+            android:text="description"
+            android:textSize="16sp"
+            app:align="left" />
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
+            android:layout_height="wrap_content">
 
             <me.codeboy.android.aligntextview.AlignTextView
                 android:id="@+id/interview_position"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="position"
-                android:textSize="12sp"
-                app:align="left"
                 android:layout_alignParentLeft="true"
                 android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"/>
+                android:text="position"
+                android:textSize="12sp"
+                app:align="left" />
 
             <me.codeboy.android.aligntextview.AlignTextView
                 android:id="@+id/interview_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="location"
-                android:textSize="12sp"
-                app:align="right"
                 android:layout_alignParentRight="true"
                 android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"/>
+                android:text="location"
+                android:textSize="12sp"
+                app:align="right" />
 
 
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
+            android:layout_height="wrap_content">
 
             <me.codeboy.android.aligntextview.AlignTextView
                 android:id="@+id/interview_question_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="question number"
-                android:textSize="12sp"
-                app:align="left"
                 android:layout_alignParentStart="true"
                 android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"/>
+                android:text="question number"
+                android:textSize="12sp"
+                app:align="left" />
 
             <me.codeboy.android.aligntextview.AlignTextView
                 android:id="@+id/interview_level"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="level"
-                android:textSize="12sp"
-                app:align="right"
                 android:layout_alignParentEnd="true"
                 android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"/>
+                android:text="level"
+                android:textSize="12sp"
+                app:align="right" />
 
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
+            android:layout_height="wrap_content">
 
             <com.sackcentury.shinebuttonlib.ShineButton
                 android:id="@+id/interview_list_like"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:src="@android:color/darker_gray"
-                android:layout_marginBottom="7dp"
-                android:layout_marginRight="7dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
+                android:layout_marginRight="7dp"
+                android:layout_marginBottom="7dp"
+                android:src="@android:color/darker_gray"
                 app:allow_random_color="false"
                 app:btn_color="@android:color/darker_gray"
                 app:btn_fill_color="@android:color/holo_red_light"

@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardUseCompatPadding="true"
+    android:layout_marginTop="3dp"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackgroundBorderless"
     app:cardCornerRadius="3dp"
     app:cardElevation="3dp"
-    android:foreground="?android:attr/selectableItemBackgroundBorderless"
-    android:clickable="true"
+    app:cardUseCompatPadding="true"
     app:contentPaddingLeft="3dp"
     app:contentPaddingRight="3dp"
-    android:layout_marginTop="3dp"
-    app:strokeColor="@color/waited_gray"
     app:rippleColor="@color/teal_700"
+    app:strokeColor="@color/waited_gray"
     app:strokeWidth="0dp">
 
     <LinearLayout
@@ -24,15 +24,13 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="27dp"
-            android:layout_marginLeft="18dp"
-            >
+            android:layout_marginLeft="12dp"
+            android:layout_marginBottom="27dp">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                >
+                android:orientation="horizontal">
 
                 <cn.carbs.android.avatarimageview.library.AvatarImageView
                     android:id="@+id/knowledge_list_avatar"
@@ -41,33 +39,32 @@
                     android:padding="1dp"
                     app:aiv_BoarderWidth="2dp"
                     app:aiv_ShowBoarder="true"
-                    app:aiv_TextSizeRatio="0.4"/>
+                    app:aiv_TextSizeRatio="0.4" />
 
-        <me.codeboy.android.aligntextview.AlignTextView
-            android:id="@+id/knowledge_username"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="hello"
-            android:textSize="16sp"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="8dp"
-            app:align="left" />
+                <me.codeboy.android.aligntextview.AlignTextView
+                    android:id="@+id/knowledge_username"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="8dp"
+                    android:text="hello"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:align="left" />
 
             </LinearLayout>
 
             <Button
                 android:id="@+id/knowledge_list_detail"
-                android:layout_width="70dp"
-                android:layout_height="30dp"
-                android:text="detail"
-                android:textSize="9sp"
-                android:textColor="@color/white"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
                 android:layout_alignParentEnd="true"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="2dp"
                 android:layout_marginRight="14dp"
-                />
+                android:text="detail"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
 
         </RelativeLayout>
 
@@ -86,28 +83,26 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="-30dp"
             android:layout_marginLeft="-25dp"
+            android:layout_marginTop="-30dp"
             android:layout_marginRight="-25dp"
             android:layout_marginBottom="-60dp"
-            >
+            android:orientation="vertical">
 
-        <br.tiagohm.markdownview.MarkdownView
-            android:id="@+id/knowledge_question"
-            app:escapeHtml="true"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            <br.tiagohm.markdownview.MarkdownView
+                android:id="@+id/knowledge_question"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:escapeHtml="true" />
 
         </LinearLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            >
+            android:layout_marginBottom="10dp">
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
@@ -120,7 +115,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
                     android:text="Colored"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
 
                 <me.codeboy.android.aligntextview.AlignTextView
                     android:id="@+id/knowledge_company"
@@ -128,7 +123,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
                     android:text="Colored"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
 
 
             </androidx.appcompat.widget.LinearLayoutCompat>
@@ -145,19 +140,19 @@
                 app:align="right" /-->
 
 
-                <com.sackcentury.shinebuttonlib.ShineButton
-                    android:id="@+id/knowledge_list_like"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:src="@android:color/darker_gray"
-                    android:layout_marginBottom="7dp"
-                    android:layout_marginRight="7dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentBottom="true"
-                    app:allow_random_color="false"
-                    app:btn_color="@android:color/darker_gray"
-                    app:btn_fill_color="@android:color/holo_red_light"
-                    app:siShape="@raw/heart" />
+            <com.sackcentury.shinebuttonlib.ShineButton
+                android:id="@+id/knowledge_list_like"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginRight="7dp"
+                android:layout_marginBottom="7dp"
+                android:src="@android:color/darker_gray"
+                app:allow_random_color="false"
+                app:btn_color="@android:color/darker_gray"
+                app:btn_fill_color="@android:color/holo_red_light"
+                app:siShape="@raw/heart" />
 
 
         </RelativeLayout>
