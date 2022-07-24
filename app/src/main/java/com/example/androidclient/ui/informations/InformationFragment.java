@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,32 +16,24 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.android.volley.Request;
+import com.airbnb.lottie.LottieAnimationView;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.androidclient.Bean.InterviewBean;
 import com.example.androidclient.Bean.KnowledgeBean;
 import com.example.androidclient.R;
 import com.example.androidclient.activity_login_in;
-import com.example.androidclient.activity_register;
 import com.example.androidclient.activity_profile_changing;
 import com.example.androidclient.applicationContent.userProfile;
 import com.example.androidclient.databinding.FragmentInformationBinding;
 import com.example.androidclient.mycollection.activity_interview_collection;
 import com.example.androidclient.mycollection.activity_knowledge_collection;
+import com.example.androidclient.mypost.activity_post_interview;
+import com.example.androidclient.mypost.activity_post_knowledge;
 import com.example.androidclient.test;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class InformationFragment extends Fragment {
 
@@ -50,8 +41,10 @@ public class InformationFragment extends Fragment {
     private Button edit;
     private Button log_in;
     private Button login_out;
-    private ImageButton collection;
-    private ImageButton knowledge_collection;
+    private LottieAnimationView knowledge_collection;
+    private LottieAnimationView interview_collection;
+    private LottieAnimationView my_post_interview;
+    private LottieAnimationView my_post_knowledge;
     private Context context;
 
     private TextView email_text;
@@ -96,25 +89,43 @@ public class InformationFragment extends Fragment {
         YoE_text = root.findViewById(R.id.information_YoE);
         date_text = root.findViewById(R.id.information_date);
         login_out = root.findViewById(R.id.login_out);
-        collection = root.findViewById(R.id.information_collection);
-        knowledge_collection=root.findViewById(R.id.information_collection_knowledge);
-        context=this.getContext();
+        knowledge_collection = root.findViewById(R.id.information_collection);
+        interview_collection = root.findViewById(R.id.information_collection_knowledge);
+        my_post_interview = root.findViewById(R.id.information_my_post_interview);
+        my_post_knowledge=root.findViewById(R.id.information_my_post_knowledge);
+        context = this.getContext();
 
-        interviewBeans=new ArrayList<>();
-        knowledgeBeans=new ArrayList<>();
-
-        collection.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent =new Intent(context, activity_interview_collection.class);
-                startActivity(intent);
-            }
-        });
+        interviewBeans = new ArrayList<>();
+        knowledgeBeans = new ArrayList<>();
 
         knowledge_collection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent =new Intent(context, activity_knowledge_collection.class);
+                Intent intent = new Intent(context, activity_knowledge_collection.class);
+                startActivity(intent);
+            }
+        });
+
+        interview_collection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, activity_interview_collection.class);
+                startActivity(intent);
+            }
+        });
+
+        my_post_interview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, activity_post_interview.class);
+                startActivity(intent);
+            }
+        });
+
+        my_post_knowledge.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, activity_post_knowledge.class);
                 startActivity(intent);
             }
         });
@@ -184,12 +195,11 @@ public class InformationFragment extends Fragment {
     }
 
 
-
-        @Override
-        public void onDestroyView () {
-            super.onDestroyView();
-            binding = null;
-            getActivity().unregisterReceiver(mRefreshBroadcastReceiver);
-        }
-
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+        getActivity().unregisterReceiver(mRefreshBroadcastReceiver);
     }
+
+}

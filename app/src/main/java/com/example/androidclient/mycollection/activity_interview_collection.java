@@ -56,8 +56,6 @@ public class activity_interview_collection extends Activity {
 
     private InterviewAdapter adapter;
 
-    private Context context;
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_interview_collection);
@@ -121,18 +119,19 @@ public class activity_interview_collection extends Activity {
                         String code = null;
                         try {
                             code = response.get("code").toString();
-
+                            Toast.makeText(activity_interview_collection.this, code, Toast.LENGTH_SHORT).show();
                             if (code.equals("00")) {
                                 JSONObject data = (JSONObject) response.get("data");
-                                JSONObject entities = (JSONObject) data.get("entities");
-                                JSONArray array = (JSONArray) entities.get("interviews");
+                                JSONObject entities=(JSONObject) data.get("entities");
+                                JSONObject entities2 = (JSONObject) entities.get("interviews");
+                                JSONArray array = (JSONArray) entities2.get("entities");
                                 Toast.makeText(activity_interview_collection.this, String.valueOf(array.length()), Toast.LENGTH_SHORT).show();
 
                                 for (int i = 0; i < array.length(); i++) {
                                     JSONObject buffer = array.getJSONObject(i);
 
-                                    InterviewBean bean = new InterviewBean(buffer.get("interviewId").toString(), buffer.get("providerId").toString(),
-                                            buffer.get("providerName").toString(), buffer.get("title").toString(), buffer.get("description").toString(),
+                                    InterviewBean bean = new InterviewBean(buffer.get("interviewId").toString(), buffer.get("userId").toString(),
+                                            buffer.get("userName").toString(), buffer.get("title").toString(), buffer.get("description").toString(),
                                             buffer.get("company").toString(), buffer.get("uploadTime").toString(), buffer.get("level").toString(),
                                             buffer.get("interviewTime").toString(), buffer.get("position").toString(), buffer.get("location").toString(),
                                             (Integer) buffer.get("isLiked"));

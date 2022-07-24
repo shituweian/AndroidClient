@@ -36,6 +36,8 @@
         <activity android:name=".activity_interview"/>
         <activity android:name=".mycollection.activity_interview_collection"/>
         <activity android:name=".mycollection.activity_knowledge_collection"/>
+        <activity android:name=".mypost.activity_post_interview"/>
+        <activity android:name=".mypost.activity_post_knowledge"/>
     </application>
 
 </manifest>

@@ -1,13 +1,11 @@
-package com.example.androidclient.mycollection;
+package com.example.androidclient.mypost;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.animation.OvershootInterpolator;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,18 +15,14 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.androidclient.Bean.AnswerBean;
-import com.example.androidclient.Bean.CommentBean;
-import com.example.androidclient.Bean.InterviewBean;
 import com.example.androidclient.Bean.KnowledgeBean;
 import com.example.androidclient.R;
 import com.example.androidclient.activity_knowledge;
 import com.example.androidclient.adapter.KnowledgeAdapter;
-import com.example.androidclient.adapter.interview_adapter.InterviewAdapter;
 import com.example.androidclient.applicationContent.userProfile;
+import com.example.androidclient.mycollection.activity_knowledge_collection;
 import com.scwang.smart.refresh.footer.BallPulseFooter;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
-import com.scwang.smart.refresh.layout.listener.OnLoadMoreListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -44,7 +38,8 @@ import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter;
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 import jp.wasabeef.recyclerview.animators.LandingAnimator;
 
-public class activity_knowledge_collection extends Activity {
+public class activity_post_knowledge extends Activity {
+
     RequestQueue requestQueue;
     private userProfile profile;
 
@@ -56,9 +51,7 @@ public class activity_knowledge_collection extends Activity {
 
     private KnowledgeAdapter adapter;
 
-    private Context context;
-
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_knowledge_collection);
 
@@ -76,7 +69,6 @@ public class activity_knowledge_collection extends Activity {
         initData();
 
         VolleyPost_Knowledge();
-
     }
 
     public void initData() {
@@ -104,7 +96,7 @@ public class activity_knowledge_collection extends Activity {
 
             @Override
             public void onItemClick(int position) {
-                Intent intent =new Intent(activity_knowledge_collection.this, activity_knowledge.class);
+                Intent intent =new Intent(activity_post_knowledge.this, activity_knowledge.class);
                 intent.putExtra("knowledge",(Serializable) mData.get(position));
                 startActivity(intent);
             }
@@ -114,7 +106,7 @@ public class activity_knowledge_collection extends Activity {
     }
 
     public void VolleyPost_Knowledge() {
-        String url = "http://120.77.98.16:8080/users_like";
+        String url = "http://120.77.98.16:8080/my_posts";
         JsonObjectRequest str = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -125,10 +117,9 @@ public class activity_knowledge_collection extends Activity {
 
                             if (code.equals("00")) {
                                 JSONObject data = (JSONObject) response.get("data");
-                                JSONObject entities = (JSONObject) data.get("entities");
-                                JSONObject entities2=(JSONObject)entities.get("knowledge");
+                                JSONObject entities2=(JSONObject)data.get("questions");
                                 JSONArray array = (JSONArray) entities2.get("entities");
-                                Toast.makeText(activity_knowledge_collection.this, String.valueOf(array.length()), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(activity_post_knowledge.this, String.valueOf(array.length()), Toast.LENGTH_SHORT).show();
 
                                 for (int i = 0; i < array.length(); i++) {
                                     JSONObject buffer = array.getJSONObject(i);
@@ -149,7 +140,7 @@ public class activity_knowledge_collection extends Activity {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(activity_knowledge_collection.this, error.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(activity_post_knowledge.this, error.toString(), Toast.LENGTH_SHORT).show();
             }
         }) {
             @Override

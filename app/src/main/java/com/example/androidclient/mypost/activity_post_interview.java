@@ -1,13 +1,11 @@
-package com.example.androidclient.mycollection;
+package com.example.androidclient.mypost;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.animation.OvershootInterpolator;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,18 +15,14 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.androidclient.Bean.AnswerBean;
-import com.example.androidclient.Bean.CommentBean;
 import com.example.androidclient.Bean.InterviewBean;
-import com.example.androidclient.Bean.KnowledgeBean;
 import com.example.androidclient.R;
-import com.example.androidclient.activity_knowledge;
-import com.example.androidclient.adapter.KnowledgeAdapter;
+import com.example.androidclient.activity_interview;
 import com.example.androidclient.adapter.interview_adapter.InterviewAdapter;
 import com.example.androidclient.applicationContent.userProfile;
+import com.example.androidclient.mycollection.activity_interview_collection;
 import com.scwang.smart.refresh.footer.BallPulseFooter;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
-import com.scwang.smart.refresh.layout.listener.OnLoadMoreListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -44,30 +38,29 @@ import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter;
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 import jp.wasabeef.recyclerview.animators.LandingAnimator;
 
-public class activity_knowledge_collection extends Activity {
+public class activity_post_interview extends Activity {
+
     RequestQueue requestQueue;
+
     private userProfile profile;
 
     private RecyclerView recyclerView;
 
-    private List<KnowledgeBean> mData;
+    private List<InterviewBean> mData;
 
     private RefreshLayout mRefreshLayout;
 
-    private KnowledgeAdapter adapter;
-
-    private Context context;
+    private InterviewAdapter adapter;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_knowledge_collection);
-
+        setContentView(R.layout.activity_interview_collection);
         requestQueue = Volley.newRequestQueue(this);
         profile = (userProfile) getApplicationContext();
 
-        recyclerView = findViewById(R.id.collection_knowledge_recycler);
+        recyclerView = findViewById(R.id.collection_interview_recycler);
 
-        mRefreshLayout = findViewById(R.id.collection_knowledge_refresh);
+        mRefreshLayout = findViewById(R.id.collection_interview_refresh);
 
         mRefreshLayout.setRefreshFooter(new BallPulseFooter(this));
 
@@ -75,15 +68,16 @@ public class activity_knowledge_collection extends Activity {
 
         initData();
 
-        VolleyPost_Knowledge();
+        VolleyPost_interview();
 
+        super.onStart();
     }
 
     public void initData() {
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new KnowledgeAdapter(mData);
+        adapter = new InterviewAdapter(mData);
         recyclerView.setAdapter(adapter);
         LandingAnimator animator = new LandingAnimator();
 
@@ -97,24 +91,22 @@ public class activity_knowledge_collection extends Activity {
         recyclerView.setAdapter(new ScaleInAnimationAdapter(alphaInAnimationAdapter));
 
         initListener();
+
     }
 
     private void initListener() {
-        adapter.setOnItemClickListener(new KnowledgeAdapter.OnItemClickListener() {
-
+        adapter.setOnItemClickListener(new InterviewAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                Intent intent =new Intent(activity_knowledge_collection.this, activity_knowledge.class);
-                intent.putExtra("knowledge",(Serializable) mData.get(position));
+                Intent intent = new Intent(activity_post_interview.this, activity_interview.class);
+                intent.putExtra("interview", (Serializable) mData.get(position));
                 startActivity(intent);
             }
         });
-
-
     }
 
-    public void VolleyPost_Knowledge() {
-        String url = "http://120.77.98.16:8080/users_like";
+    public void VolleyPost_interview() {
+        String url = "http://120.77.98.16:8080/my_posts";
         JsonObjectRequest str = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -125,18 +117,18 @@ public class activity_knowledge_collection extends Activity {
 
                             if (code.equals("00")) {
                                 JSONObject data = (JSONObject) response.get("data");
-                                JSONObject entities = (JSONObject) data.get("entities");
-                                JSONObject entities2=(JSONObject)entities.get("knowledge");
-                                JSONArray array = (JSONArray) entities2.get("entities");
-                                Toast.makeText(activity_knowledge_collection.this, String.valueOf(array.length()), Toast.LENGTH_SHORT).show();
+                                JSONObject entities = (JSONObject) data.get("interviews");
+                                JSONArray array = (JSONArray) entities.get("entities");
+                                Toast.makeText(activity_post_interview.this, String.valueOf(array.length()), Toast.LENGTH_SHORT).show();
 
                                 for (int i = 0; i < array.length(); i++) {
                                     JSONObject buffer = array.getJSONObject(i);
 
-                                    KnowledgeBean bean = new KnowledgeBean(buffer.get("knowledgeId").toString(), buffer.get("question_content").toString(),
-                                            buffer.get("answer_list").toString(), buffer.get("userid").toString(), buffer.get("interviewId").toString(), buffer.get("userName").toString(),
-                                            buffer.get("comment_list").toString(), buffer.get("company").toString(), buffer.get("tag").toString(),
-                                            buffer.get("uploadTime").toString(), (Integer) buffer.get("isLiked"));
+                                    InterviewBean bean = new InterviewBean(buffer.get("interviewId").toString(), buffer.get("userId").toString(),
+                                            buffer.get("userName").toString(), buffer.get("title").toString(), buffer.get("description").toString(),
+                                            buffer.get("company").toString(), buffer.get("uploadTime").toString(), buffer.get("level").toString(),
+                                            buffer.get("interviewTime").toString(), buffer.get("position").toString(), buffer.get("location").toString(),
+                                            (Integer) buffer.get("isLiked"));
                                     adapter.add(bean, mData.size());
                                 }
                             } else {
@@ -149,7 +141,7 @@ public class activity_knowledge_collection extends Activity {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(activity_knowledge_collection.this, error.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(activity_post_interview.this, error.toString(), Toast.LENGTH_SHORT).show();
             }
         }) {
             @Override

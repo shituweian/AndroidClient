@@ -1,5 +1,6 @@
 package com.example.androidclient.adapter.interview_adapter;
 
+import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -28,6 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cn.carbs.android.avatarimageview.library.AvatarImageView;
 import me.codeboy.android.aligntextview.AlignTextView;
 
 public class InterviewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -93,6 +95,7 @@ public class InterviewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         private RequestQueue requestQueue;
         private AlignTextView level;
         private ShineButton liked;
+        private AvatarImageView avatar;
         private int isLiked;
         private InterviewBean interviewBean;
         private int position_in_data;
@@ -113,6 +116,7 @@ public class InterviewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             question_number = itemView.findViewById(R.id.interview_question_number);
             level = itemView.findViewById(R.id.interview_level);
             liked = itemView.findViewById(R.id.interview_list_like);
+            avatar=itemView.findViewById(R.id.interview_avatar);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -135,18 +139,46 @@ public class InterviewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             this.interviewBean = interviewBean;
             title.setText(interviewBean.getTitle());
             provider_name.setText(interviewBean.getProvider_name());
-            company.setText(interviewBean.getCompany());
+            if(interviewBean.getCompany()!=null&&!interviewBean.getCompany().equals("null")) {
+                company.setText(interviewBean.getCompany());
+            }else{
+                company.setText("");
+            }
             uploadtime.setText(interviewBean.getUploadtime());
             description.setText(interviewBean.getDescription());
-            position.setText(interviewBean.getPosition());
-            location.setText(interviewBean.getLocation());
-            question_number.setText(interviewBean.getQuestion_total());
-            level.setText(interviewBean.getLevel());
+            if(interviewBean.getPosition()!=null&&!interviewBean.getPosition().equals("null")) {
+                position.setText(interviewBean.getPosition());
+            }
+            else{
+                position.setText("");
+            }
+            if(interviewBean.getLocation()!=null&&!interviewBean.getLocation().equals("null")) {
+                location.setText(interviewBean.getLocation());
+            }else{
+                location.setText("");
+            }
+            if(interviewBean.getQuestion_total()>=1) {
+                question_number.setText(interviewBean.getQuestion_total() + " Questions");
+            }else{
+                question_number.setText("");
+            }
+            if(interviewBean.getLevel()!=null&&!interviewBean.getLevel().equals("null")) {
+                level.setText(interviewBean.getLevel());
+            }
+            else{
+                level.setText("Pass");
+                level.setTextColor(Color.parseColor("#00CC33"));
+            }
             isLiked = interviewBean.getIsliked();
             if (isLiked == 0) {
                 liked.setChecked(false);
             } else {
                 liked.setChecked(true);
+            }
+            if(interviewBean.getProvider_name().length()>=3) {
+                avatar.setTextAndColorSeed(interviewBean.getProvider_name().substring(0,3),interviewBean.getProvider_name().substring(0,3));
+            }else{
+                avatar.setTextAndColorSeed(interviewBean.getProvider_name(),interviewBean.getProvider_name());
             }
         }
 
@@ -155,18 +187,46 @@ public class InterviewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             this.position_in_data = position_in_data;
             title.setText(interviewBean.getTitle());
             provider_name.setText(interviewBean.getProvider_name());
-            company.setText(interviewBean.getCompany());
+            if(interviewBean.getCompany()!=null&&!interviewBean.getCompany().equals("null")) {
+                company.setText(interviewBean.getCompany());
+            }else{
+                company.setText("");
+            }
             uploadtime.setText(interviewBean.getUploadtime());
             description.setText(interviewBean.getDescription());
-            position.setText(interviewBean.getPosition());
-            location.setText(interviewBean.getLocation());
-            question_number.setText(String.valueOf(interviewBean.getQuestion_total()));
-            level.setText(interviewBean.getLevel());
+            if(interviewBean.getPosition()!=null&&!interviewBean.getPosition().equals("null")) {
+                position.setText(interviewBean.getPosition());
+            }
+            else{
+                position.setText("");
+            }
+            if(interviewBean.getLocation()!=null&&!interviewBean.getLocation().equals("null")) {
+                location.setText(interviewBean.getLocation());
+            }else{
+                location.setText("");
+            }
+            if(interviewBean.getQuestion_total()>=1) {
+                question_number.setText(interviewBean.getQuestion_total() + " Questions");
+            }else{
+                question_number.setText("");
+            }
+            if(interviewBean.getLevel()!=null&&!interviewBean.getLevel().equals("null")) {
+                level.setText(interviewBean.getLevel());
+            }
+            else{
+                level.setText("Pass");
+                level.setTextColor(Color.parseColor("#00CC33"));
+            }
             isLiked = interviewBean.getIsliked();
             if (isLiked == 0) {
                 liked.setChecked(false);
             } else {
                 liked.setChecked(true);
+            }
+            if(interviewBean.getProvider_name().length()>=3) {
+                avatar.setTextAndColorSeed(interviewBean.getProvider_name().substring(0,3),interviewBean.getProvider_name().substring(0,3));
+            }else{
+                avatar.setTextAndColorSeed(interviewBean.getProvider_name(),interviewBean.getProvider_name());
             }
         }
 

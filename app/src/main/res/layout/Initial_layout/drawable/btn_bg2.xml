@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/white_blue"/>
+    <corners android:topLeftRadius="2dip"
+        android:topRightRadius="2dip"
+        android:bottomRightRadius="2dip"
+        android:bottomLeftRadius="2dip" />
+    <padding android:left="1dip"
+        android:right="1dip"
+        android:bottom="1dip"/>
+
+    <stroke android:width="3dip"
+        android:color="@color/white_blue"
+        />
+    <!--边框宽度-->
+    <size android:width="15dip"
+        android:height="15dip"
+        />
+</shape>
