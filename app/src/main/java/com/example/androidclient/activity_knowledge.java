@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.OvershootInterpolator;
@@ -24,19 +25,27 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.androidclient.Bean.AnswerBean;
 import com.example.androidclient.Bean.BasedBean_knowledge_detail;
+import com.example.androidclient.Bean.CommentBean;
 import com.example.androidclient.Bean.KnowledgeBean;
 import com.example.androidclient.adapter.LoadMoreAdapter;
 import com.example.androidclient.adapter.knowledge_detailed_adapter.KnowledgeAnswerAdapter;
 import com.example.androidclient.adapter.knowledge_detailed_adapter.KnowledgeDetailedBasedAdapter;
 import com.example.androidclient.applicationContent.userProfile;
+import com.example.androidclient.mypost.activity_post_knowledge;
 import com.scwang.smart.refresh.footer.BallPulseFooter;
 import com.scwang.smart.refresh.header.BezierRadarHeader;
 import com.scwang.smart.refresh.layout.SmartRefreshLayout;
+import com.scwang.smart.refresh.layout.api.RefreshLayout;
+import com.scwang.smart.refresh.layout.listener.OnRefreshListener;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -145,6 +154,48 @@ public class activity_knowledge extends Activity {
             }
         });
 
+        handlerDownPullUpdate();
+
+    }
+
+    public void handlerDownPullUpdate() {
+        swipe_answer.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                //mData.add(0, data);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        //adapter.notifyDataSetChanged();
+                        //adapter.add(data, 0);
+                        /*currentPage++;
+                        volleyPostInitial(binding.getRoot());
+                        mRefreshLayout.finishRefresh(600);*/
+                        VolleyPost_Knowledge_one();
+                    }
+                }, 600);
+                swipe_answer.finishRefresh();
+            }
+        });
+        swipe_comment.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                //mData.add(0, data);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        //adapter.notifyDataSetChanged();
+                        //adapter.add(data, 0);
+                        /*currentPage++;
+                        volleyPostInitial(binding.getRoot());
+                        mRefreshLayout.finishRefresh(600);*/
+                        VolleyPost_Knowledge_one();
+                    }
+                }, 600);
+                swipe_comment.finishRefresh();
+            }
+        });
+
     }
 
     public void onStart() {
@@ -213,6 +264,7 @@ public class activity_knowledge extends Activity {
                                 Toast.makeText(activity_knowledge.this, "successful", Toast.LENGTH_SHORT).show();
                                 reply.setText("");
                                 reply_box.clearFocus();
+                                VolleyPost_Knowledge_one();
                             } catch (Exception e) {
                                 Toast.makeText(activity_knowledge.this, e.toString(), Toast.LENGTH_SHORT).show();
                             }
@@ -263,7 +315,7 @@ public class activity_knowledge extends Activity {
                                 Toast.makeText(activity_knowledge.this, "successful", Toast.LENGTH_SHORT).show();
                                 reply.setText("");
                                 reply_box.clearFocus();
-
+                                VolleyPost_Knowledge_one();
                             } catch (Exception e) {
                                 Toast.makeText(activity_knowledge.this, e.toString(), Toast.LENGTH_SHORT).show();
                             }
@@ -290,30 +342,56 @@ public class activity_knowledge extends Activity {
         requestQueue.add(str);
     }
 
-    public void volleyGetKnowledge(View v) {
-        String url="http://120.77.98.16:8080/knowledge_service?uuid="+knowledge.getKnowledge_id();
-        JsonObjectRequest str = new JsonObjectRequest(Request.Method.GET, url,null,
+    public void VolleyPost_Knowledge_one() {
+        String url = "http://120.77.98.16:8080/knowledge_service?uuid="+knowledge.getKnowledge_id();
+        JsonObjectRequest str = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        String code = "";
+                        String code = null;
                         try {
-                            code = (String) response.get("code");
+                            code = response.get("code").toString();
 
+                            if (code.equals("00")) {
+                                JSONObject buffer=(JSONObject) response.get("data");
+                                JSONObject comments = buffer.getJSONObject("comments");
+                                JSONObject comment_queryInfo = comments.getJSONObject("queryInfo");
+                                JSONArray comment_array = comments.getJSONArray("entities");
+                                List<CommentBean> commentBeanList = new ArrayList<>();
+                                for (int j = 0; j < comment_array.length(); j++) {
+                                    JSONObject comment = comment_array.getJSONObject(j);
+                                    CommentBean commentBean = new CommentBean(comment.get("knowledgeCommentId").toString(), comment.get("knowledgeId").toString(),
+                                            comment.get("providerId").toString(), comment.get("userName").toString(), comment.get("content").toString(), comment.get("uploadTime").toString());
+                                    commentBeanList.add(commentBean);
+                                }
+
+                                JSONObject answers = buffer.getJSONObject("answers");
+                                JSONObject answer_queryInfo = answers.getJSONObject("queryInfo");
+                                JSONArray answer_array = answers.getJSONArray("entities");
+                                List<AnswerBean> answerBeanList = new ArrayList<>();
+                                for (int j = 0; j < answer_array.length(); j++) {
+                                    JSONObject answer = answer_array.getJSONObject(j);
+                                    AnswerBean answerBean = new AnswerBean(answer.get("knowledgeAnswerId").toString(), answer.get("knowledgeId").toString(), answer.get("providerId").toString(),
+                                            answer.get("userName").toString(), answer.get("content").toString(), answer.get("uploadTime").toString());
+                                    answerBeanList.add(answerBean);
+                                }
+
+                                KnowledgeBean bean = new KnowledgeBean(buffer.get("knowledgeId").toString(), buffer.get("question_content").toString(),
+                                        buffer.get("answer_list").toString(), buffer.get("userid").toString(), buffer.get("interviewId").toString(), buffer.get("userName").toString(),
+                                        buffer.get("comment_list").toString(), buffer.get("company").toString(), buffer.get("tag").toString(),
+                                        buffer.get("uploadTime").toString(), (Integer) buffer.get("isLiked"), (Integer) answer_queryInfo.get("currentPage"), (Integer) answer_queryInfo.get("pageSize"),
+                                        (Integer) answer_queryInfo.get("totalRecord"), (Integer) comment_queryInfo.get("currentPage"), (Integer) comment_queryInfo.get("pageSize"),
+                                        (Integer) comment_queryInfo.get("totalRecord"));
+                                bean.setAnswers(answerBeanList);
+                                bean.setComments(commentBeanList);
+                                knowledge=bean;
+                                initData_answer();
+                                initData_comment();
+                            } else {
+
+                            }
                         } catch (JSONException e) {
                             e.printStackTrace();
-                        }
-                        if (code.equals("00")) {
-
-                            try {
-                                Toast.makeText(activity_knowledge.this, "successful", Toast.LENGTH_SHORT).show();
-
-
-                            } catch (Exception e) {
-                                Toast.makeText(activity_knowledge.this, e.toString(), Toast.LENGTH_SHORT).show();
-                            }
-                        } else if (code.equals("99")) {
-                            Toast.makeText(activity_knowledge.this, "incorrect password", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }, new Response.ErrorListener() {
