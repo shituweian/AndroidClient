@@ -319,7 +319,7 @@
                 <me.codeboy.android.aligntextview.AlignTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="My\nKnowledge"
+                    android:text="My Post\nKnowledge"
                     android:textSize="13sp"
                     android:textStyle="bold"
                     app:align="center"
@@ -351,7 +351,7 @@
             <me.codeboy.android.aligntextview.AlignTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="My\nInterview"
+                android:text="My Post\nInterview"
                 android:textSize="13sp"
                 android:textStyle="bold"
                 app:align="center"

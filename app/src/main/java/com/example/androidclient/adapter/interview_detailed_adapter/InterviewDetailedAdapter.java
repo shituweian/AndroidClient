@@ -323,6 +323,7 @@ public class InterviewDetailedAdapter extends RecyclerView.Adapter<RecyclerView.
         private AlignTextView tag;
         private AlignTextView company;
         private AlignTextView username;
+        private AvatarImageView avatar;
         private ShineButton liked;
         private RequestQueue requestQueue;
         private Button detail;
@@ -330,6 +331,7 @@ public class InterviewDetailedAdapter extends RecyclerView.Adapter<RecyclerView.
         private KnowledgeBean knowledgeBean;
         private int position;
         private int isliked;
+
 
         public KnowledgeInnerHolder(View itemView){
             super(itemView);
@@ -342,6 +344,8 @@ public class InterviewDetailedAdapter extends RecyclerView.Adapter<RecyclerView.
             liked = itemView.findViewById(R.id.knowledge_list_like);
             username=itemView.findViewById(R.id.knowledge_username);
             detail = itemView.findViewById(R.id.knowledge_list_detail);
+            avatar=itemView.findViewById(R.id.knowledge_list_avatar);
+            avatar.setTextAndColorSeed("gsw","gsw");
 
             itemView.setOnClickListener(new View.OnClickListener(){
                 public void onClick(View view){
@@ -378,6 +382,11 @@ public class InterviewDetailedAdapter extends RecyclerView.Adapter<RecyclerView.
             } else {
                 liked.setChecked(true);
             }
+            if(knowledgeBean.getUsername().length()>=3) {
+                avatar.setTextAndColorSeed(knowledgeBean.getUsername().substring(0,3),knowledgeBean.getUsername().substring(0,3));
+            }else{
+                avatar.setTextAndColorSeed(knowledgeBean.getUsername(),knowledgeBean.getUsername());
+            }
         }
 
         public void setData(KnowledgeBean knowledgeBean, int position){
@@ -393,6 +402,11 @@ public class InterviewDetailedAdapter extends RecyclerView.Adapter<RecyclerView.
                 liked.setChecked(false);
             } else {
                 liked.setChecked(true);
+            }
+            if(knowledgeBean.getUsername().length()>=3) {
+                avatar.setTextAndColorSeed(knowledgeBean.getUsername().substring(0,3),knowledgeBean.getUsername().substring(0,3));
+            }else{
+                avatar.setTextAndColorSeed(knowledgeBean.getUsername(),knowledgeBean.getUsername());
             }
         }
 

@@ -5,18 +5,16 @@
     android:layout_height="match_parent"
     android:background="@color/background">
 
-    <androidx.cardview.widget.CardView
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_centerInParent="true"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginBottom="15dp">
+        android:background="@color/background">
 
-        <RelativeLayout
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="15dp"
             android:layout_marginRight="15dp"
@@ -25,49 +23,76 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="15dp"
                 android:orientation="vertical">
 
-
-                <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
-                    android:id="@+id/knowledge_add_content_box"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp"
-                    android:gravity="center"
-                    app:hasClearButton="true"
-                    app:iconSignifier="@drawable/ic_mail"
-                    app:labelText="EMAIL"
-                    app:panelBackgroundColor="#00FFFFFF"
-                    app:singleLine="true">
+                    android:layout_height="160dp"
+                    android:layout_marginLeft="-5dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginRight="-5dp"
+                    android:layout_marginBottom="0dp"
+                    android:orientation="vertical">
 
-                    <studio.carbonylgroup.textfieldboxes.ExtendedEditText
-                        android:id="@+id/knowledge_add_content_extend"
+                    <br.tiagohm.markdownview.MarkdownView
+                        android:id="@+id/knowledge_add_md"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:escapeHtml="false" />
+
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <Button
+                        android:id="@+id/knowledge_add_refresh"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:inputType="text"
-                        app:singleLine="true" />
+                        android:layout_centerInParent="true"
+                        android:layout_marginTop="30dp"
+                        android:background="@drawable/btn_bg2"
+                        android:text="refresh"
+                        android:textColor="@color/white" />
 
-                </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+                </RelativeLayout>
+
+
+                <com.classichu.lineseditview.LinesEditView
+                    android:id="@+id/knowledge_add_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginRight="10dp"
+                    app:classic_contentTextSize="16sp"
+                    app:classic_maxCount="5000" />
+
 
                 <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
                     android:id="@+id/knowledge_add_company_box"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp"
+                    android:layout_marginTop="15dp"
                     android:gravity="center"
                     app:hasClearButton="true"
-                    app:iconSignifier="@drawable/ic_mail"
-                    app:labelText="EMAIL"
+                    app:iconSignifier="@drawable/ic_baseline_add_business_24"
+                    app:labelText="COMPANY"
                     app:panelBackgroundColor="#00FFFFFF"
-                    app:singleLine="true">
+                    app:singleLine="false">
 
                     <studio.carbonylgroup.textfieldboxes.ExtendedEditText
                         android:id="@+id/knowledge_add_company_extend"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:inputType="text"
-                        app:singleLine="true" />
+                        app:singleLine="false" />
 
                 </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
 
@@ -78,17 +103,16 @@
                     android:layout_marginTop="25dp"
                     android:gravity="center"
                     app:hasClearButton="true"
-                    app:iconSignifier="@drawable/ic_mail"
-                    app:labelText="EMAIL"
+                    app:iconSignifier="@drawable/ic_baseline_filter_vintage_24"
+                    app:labelText="TAG"
                     app:panelBackgroundColor="#00FFFFFF"
-                    app:singleLine="true">
+                    app:singleLine="false">
 
                     <studio.carbonylgroup.textfieldboxes.ExtendedEditText
                         android:id="@+id/knowledge_add_tag_extend"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:inputType="text"
-                        app:singleLine="true" />
+                        app:singleLine="false" />
 
                 </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
 
@@ -103,16 +127,27 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:text="upload"
-                        android:textSize="20sp" />
+                        android:textSize="20sp"
+                        android:visibility="gone" />
+
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/knowledge_add_upload_lottie"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_centerInParent="true"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="0dp"
+                        app:lottie_autoPlay="false"
+                        app:lottie_rawRes="@raw/upload" />
+
+
                 </RelativeLayout>
+
 
             </LinearLayout>
 
+        </androidx.cardview.widget.CardView>
 
-        </RelativeLayout>
-
-
-    </androidx.cardview.widget.CardView>
-
+    </androidx.core.widget.NestedScrollView>
 
 </RelativeLayout>

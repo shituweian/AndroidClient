@@ -1,12 +1,18 @@
 package com.example.androidclient;
 
+import static java.lang.Thread.sleep;
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.os.Looper;
+import android.text.Editable;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -14,15 +20,16 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
+import com.classichu.lineseditview.LinesEditView;
 import com.example.androidclient.applicationContent.userProfile;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import br.tiagohm.markdownview.MarkdownView;
 import studio.carbonylgroup.textfieldboxes.ExtendedEditText;
 import studio.carbonylgroup.textfieldboxes.TextFieldBoxes;
 
@@ -30,33 +37,62 @@ public class activity_knowledge_add extends Activity {
 
     RequestQueue requestQueue;
     private userProfile profile;
-
-    private TextFieldBoxes content_box;
+    private MarkdownView md;
+    private LinesEditView content;
     private TextFieldBoxes company_box;
     private TextFieldBoxes tag_box;
-    private ExtendedEditText content;
     private ExtendedEditText company;
     private ExtendedEditText tag;
     private Button upload;
+    private Button refresh;
+    private LottieAnimationView upload_lottie;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_knowledge_add);
-        content_box = findViewById(R.id.knowledge_add_content_box);
         company_box = findViewById(R.id.knowledge_add_company_box);
         tag_box = findViewById(R.id.knowledge_add_tag_box);
-        content = findViewById(R.id.knowledge_add_content_extend);
         company = findViewById(R.id.knowledge_add_company_extend);
         tag = findViewById(R.id.knowledge_add_tag_extend);
         upload = findViewById(R.id.knowledge_add_upload);
+        md=findViewById(R.id.knowledge_add_md);
+        md.loadMarkdown("**<center>here will display markdown text</center>**\n\n**_<center>enter the context at the bottom edittext</center>_**\n\n**<center>then" +
+                " click <font color=#1976D2> REFRESH button </font> to see</center>**");
+        content =findViewById(R.id.knowledge_add_content);
+        refresh=findViewById(R.id.knowledge_add_refresh);
+        upload_lottie=findViewById(R.id.knowledge_add_upload_lottie);
         profile = (userProfile) getApplicationContext();
         requestQueue= Volley.newRequestQueue(this);
+
+        refresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(content.getContentText()!=null&&!content.getContentText().equals("")) {
+                    md.loadMarkdown(content.getContentText());
+                }else{
+                    Toast.makeText(activity_knowledge_add.this, "no text entered", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!content.getText().toString().equals("")&&!company.getText().toString().equals("")&&!tag.getText().toString().equals("")){
+                if(!content.getContentText().toString().equals("")&&!company.getText().toString().equals("")&&!tag.getText().toString().equals("")){
                     volleySendComment(upload);
+                }
+            }
+        });
+
+        upload_lottie.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!content.getContentText().toString().equals("")){
+                    upload_lottie.setRepeatCount(-1);
+                    upload_lottie.playAnimation();
+                    volleySendComment(upload);
+                }else{
+                    Toast.makeText(activity_knowledge_add.this, "no content entered", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -66,7 +102,7 @@ public class activity_knowledge_add extends Activity {
     public void volleySendComment(View v) {
         final ProgressDialog dialog = new ProgressDialog(this);
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put("question_content", content.getText().toString());
+        map.put("question_content", content.getContentText().toString());
         map.put("answer_list", "");
         map.put("userid", profile.getEmail());
         map.put("interview_id", "");
@@ -89,12 +125,24 @@ public class activity_knowledge_add extends Activity {
 
                             try {
                                 Toast.makeText(activity_knowledge_add.this, "finish", Toast.LENGTH_SHORT).show();
-                                //finish();
+                                Thread thread=new Thread(){
+                                    public void run(){
+                                        try {
+                                            sleep(1500);
+                                            finish();
+                                        } catch (InterruptedException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                };
+                                thread.start();
                             } catch (Exception e) {
                                 Toast.makeText(activity_knowledge_add.this, e.toString(), Toast.LENGTH_SHORT).show();
+                                upload_lottie.cancelAnimation();
                             }
                         } else if (code.equals("99")) {
                             Toast.makeText(activity_knowledge_add.this, "incorrect password", Toast.LENGTH_SHORT).show();
+                            upload_lottie.cancelAnimation();
                         }
                     }
                 }, new Response.ErrorListener() {
@@ -102,6 +150,7 @@ public class activity_knowledge_add extends Activity {
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(activity_knowledge_add.this, error.toString(), Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
+                upload_lottie.cancelAnimation();
             }
         }) {
             @Override

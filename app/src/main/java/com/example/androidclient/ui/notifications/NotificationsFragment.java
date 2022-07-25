@@ -4,10 +4,12 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,6 +19,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -35,6 +38,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.scwang.smart.refresh.footer.BallPulseFooter;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import com.scwang.smart.refresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smart.refresh.layout.listener.OnRefreshListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -69,8 +73,9 @@ public class NotificationsFragment extends Fragment {
 
     private int currentPage=1;
 
-    private FloatingActionButton add;
+    private LottieAnimationView loading;
 
+    private FrameLayout frameLayout;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -84,6 +89,10 @@ public class NotificationsFragment extends Fragment {
 
         mRefreshLayout=root.findViewById(R.id.interview_refresh);
 
+        frameLayout=root.findViewById(R.id.interview_framelayout);
+
+        loading=root.findViewById(R.id.interview_loading);
+
         mRefreshLayout.setRefreshFooter(new BallPulseFooter(this.getContext()));
 
         requestQueue = Volley.newRequestQueue(this.getContext());
@@ -93,11 +102,22 @@ public class NotificationsFragment extends Fragment {
         profile=(userProfile)this.getActivity().getApplicationContext();
 
 
-        add=root.findViewById(R.id.interview_floatingButton);
-
         mData=new ArrayList<>();
         initData();
         volleyPostInitial(binding.getRoot());
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+
+                frameLayout.setVisibility(View.VISIBLE);
+                loading.setVisibility(View.GONE);
+            }
+        }, 2000);
+
+        handlerDownPullUpdate();
 
         super.onStart();
 
@@ -124,6 +144,29 @@ public class NotificationsFragment extends Fragment {
 
         initListener();
 
+    }
+
+    public void handlerDownPullUpdate() {
+        mRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                //mData.add(0, data);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        //adapter.notifyDataSetChanged();
+                        //adapter.add(data, 0);
+                        /*currentPage++;
+                        volleyPostInitial(binding.getRoot());
+                        mRefreshLayout.finishRefresh(600);*/
+                        currentPage=1;
+                        adapter.removeAll();
+                        volleyPostInitial(binding.getRoot());
+                    }
+                }, 600);
+                mRefreshLayout.finishRefresh();
+            }
+        });
     }
 
     private void initListener(){
@@ -174,36 +217,40 @@ public class NotificationsFragment extends Fragment {
                             try{
                                 data=(JSONObject) response.get("data");
                                 array=(JSONArray) data.get("entities");
-                                for(int i=0;i<array.length();i++){
-                                    JSONObject buffer=array.getJSONObject(i);
+                                if(array.length()>0) {
+                                    for (int i = 0; i < array.length(); i++) {
+                                        JSONObject buffer = array.getJSONObject(i);
 
-                                    JSONObject questions=(JSONObject) buffer.get("questions");
-                                    JSONObject question_info=(JSONObject) questions.get("queryInfo");
-                                    JSONArray entities=(JSONArray) questions.get("entities");
-                                    List<KnowledgeBean> knowledgeBeanList=new ArrayList<>();
-                                    for(int j=0;j<entities.length();j++){
-                                        JSONObject buffer2=(JSONObject) entities.get(j);
-                                        KnowledgeBean knowledgeBean=new KnowledgeBean(buffer2.get("knowledgeId").toString(),
-                                                buffer2.get("question_content").toString(),"",buffer2.get("userid").toString(),
-                                                buffer2.get("interviewId").toString(),buffer2.get("userName").toString(),"",
-                                                buffer2.get("company").toString(),buffer2.get("tag").toString(),buffer2.get("uploadTime").toString(),
-                                                (Integer)buffer2.get("isLiked"),0,0,0,0,0,0);
-                                        knowledgeBeanList.add(knowledgeBean);
+                                        JSONObject questions = (JSONObject) buffer.get("questions");
+                                        JSONObject question_info = (JSONObject) questions.get("queryInfo");
+                                        JSONArray entities = (JSONArray) questions.get("entities");
+                                        List<KnowledgeBean> knowledgeBeanList = new ArrayList<>();
+                                        for (int j = 0; j < entities.length(); j++) {
+                                            JSONObject buffer2 = (JSONObject) entities.get(j);
+                                            KnowledgeBean knowledgeBean = new KnowledgeBean(buffer2.get("knowledgeId").toString(),
+                                                    buffer2.get("question_content").toString(), "", buffer2.get("userid").toString(),
+                                                    buffer2.get("interviewId").toString(), buffer2.get("userName").toString(), "",
+                                                    buffer2.get("company").toString(), buffer2.get("tag").toString(), buffer2.get("uploadTime").toString(),
+                                                    (Integer) buffer2.get("isLiked"), 0, 0, 0, 0, 0, 0);
+                                            knowledgeBeanList.add(knowledgeBean);
+                                        }
+
+                                        InterviewBean bean = new InterviewBean(buffer.get("interviewId").toString(), buffer.get("userId").toString(),
+                                                buffer.get("userName").toString(), buffer.get("title").toString(), buffer.get("description").toString(),
+                                                buffer.get("company").toString(), buffer.get("uploadTime").toString(), buffer.get("level").toString(),
+                                                buffer.get("interviewTime").toString(), buffer.get("position").toString(), buffer.get("location").toString(),
+                                                (Integer) buffer.get("isLiked"));
+
+                                        bean.setQuestions(knowledgeBeanList);
+
+                                        adapter.add(bean, mData.size());
                                     }
-
-                                    InterviewBean bean=new InterviewBean(buffer.get("interviewId").toString(),buffer.get("userId").toString(),
-                                            buffer.get("userName").toString(),buffer.get("title").toString(),buffer.get("description").toString(),
-                                            buffer.get("company").toString(),buffer.get("uploadTime").toString(),buffer.get("level").toString(),
-                                            buffer.get("interviewTime").toString(),buffer.get("position").toString(),buffer.get("location").toString(),
-                                            (Integer) buffer.get("isLiked"));
-
-                                    bean.setQuestions(knowledgeBeanList);
-
-                                    adapter.add(bean,mData.size());
+                                    if(currentPage!=1) {
+                                        recyclerView.scrollToPosition(mData.size() - 1);
+                                    }
+                                }else{
+                                    currentPage--;
                                 }
-
-                                recyclerView.scrollToPosition(mData.size()-1);
-
                             }catch(Exception e){
                                 Toast.makeText(context, e.toString(), Toast.LENGTH_SHORT).show();
                             }

@@ -76,6 +76,12 @@ public class InterviewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         notifyItemRemoved(position);
     }
 
+    public void removeAll(){
+        int position=mData.size();
+        mData.clear();
+        notifyItemRangeRemoved(0,position);
+    }
+
     public void add(InterviewBean interview, int position) {
         mData.add(position, interview);
         notifyItemInserted(position);

@@ -6,15 +6,16 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
-    <cn.carbs.android.avatarimageview.library.AvatarImageView
-        android:id="@+id/item_avatar"
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/test_lottie"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:padding="1dp"
-        app:aiv_BoarderWidth="2dp"
-        app:aiv_ShowBoarder="true"
-        app:aiv_TextSizeRatio="0.4"
-        android:layout_centerInParent="true"/>
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="0dp"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/loading2" />
+
 
 
 

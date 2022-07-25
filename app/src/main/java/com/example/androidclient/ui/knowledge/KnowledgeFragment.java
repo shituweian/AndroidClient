@@ -1,5 +1,7 @@
 package com.example.androidclient.ui.knowledge;
 
+import static java.lang.Thread.sleep;
+
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -18,6 +21,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -86,6 +90,10 @@ public class KnowledgeFragment extends Fragment {
 
     private FloatingActionButton add;
 
+    private FrameLayout frameLayout;
+
+    private LottieAnimationView loading;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -99,11 +107,13 @@ public class KnowledgeFragment extends Fragment {
 
         mRefreshLayout = root.findViewById(R.id.knowledge_refresh);
 
+        frameLayout=root.findViewById(R.id.knowledge_framelayout);
 
+        loading=root.findViewById(R.id.knowledge_loading);
 
         //mRefreshLayout.setRefreshHeader(new TwoLevelHeader(this.getContext()));
 
-        mRefreshLayout.setRefreshFooter(new BallPulseFooter(this.getContext()));
+
 
         requestQueue = Volley.newRequestQueue(this.getContext());
 
@@ -127,9 +137,21 @@ public class KnowledgeFragment extends Fragment {
         mData = new ArrayList<>();
         initData();
         volleyPostInitial(binding.getRoot());
+        handlerDownPullUpdate();
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+
+                frameLayout.setVisibility(View.VISIBLE);
+                add.setVisibility(View.VISIBLE);
+                loading.setVisibility(View.GONE);
+            }
+        }, 2000);
 
         super.onStart();
-        handlerDownPullUpdate();
 
         return root;
     }
@@ -138,28 +160,27 @@ public class KnowledgeFragment extends Fragment {
         mRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
-                KnowledgeBean data = new KnowledgeBean();
-                data.setQuestion_content("what is the 5 layers of network in computer");
-                data.setTag("network");
-                data.setCompany("Alibaba");
-                data.setUsername("Gao Shiwei");
                 //mData.add(0, data);
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         //adapter.notifyDataSetChanged();
                         //adapter.add(data, 0);
-                        currentPage++;
+                        /*currentPage++;
                         volleyPostInitial(binding.getRoot());
-                        mRefreshLayout.finishRefresh(600);
+                        mRefreshLayout.finishRefresh(600);*/
+                        currentPage=1;
+                        adapter.removeAll();
+                        volleyPostInitial(binding.getRoot());
                     }
                 }, 600);
+                mRefreshLayout.finishRefresh();
             }
         });
     }
 
     public void initData() {
-
+        mRefreshLayout.setRefreshFooter(new BallPulseFooter(this.getContext()));
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         adapter = new KnowledgeAdapter(mData);
@@ -177,6 +198,7 @@ public class KnowledgeFragment extends Fragment {
 
         initListener();
     }
+
 
     private void initListener() {
         adapter.setOnItemClickListener(new KnowledgeAdapter.OnItemClickListener() {
@@ -208,7 +230,6 @@ public class KnowledgeFragment extends Fragment {
     }
 
     public void volleyPostInitial(View v) {
-        final ProgressDialog dialog = new ProgressDialog(this.getContext());
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("pageFirst", currentPage);
         map.put("pageSizeFirst", 5);
@@ -239,45 +260,49 @@ public class KnowledgeFragment extends Fragment {
                                 e.printStackTrace();
                             }
                             try {
-                                for (int i = 0; i < array.length(); i++) {
-                                    JSONObject buffer = array.getJSONObject(i);
+                                if(array.length()!=0) {
+                                    for (int i = 0; i < array.length(); i++) {
+                                        JSONObject buffer = array.getJSONObject(i);
 
 
-                                    JSONObject comments = buffer.getJSONObject("comments");
-                                    JSONObject comment_queryInfo = comments.getJSONObject("queryInfo");
-                                    JSONArray comment_array = comments.getJSONArray("entities");
-                                    List<CommentBean> commentBeanList = new ArrayList<>();
-                                    for (int j = 0; j < comment_array.length(); j++) {
-                                        JSONObject comment = comment_array.getJSONObject(j);
-                                        CommentBean commentBean = new CommentBean(comment.get("knowledgeCommentId").toString(), comment.get("knowledgeId").toString(),
-                                                comment.get("providerId").toString(), comment.get("userName").toString(), comment.get("content").toString(), comment.get("uploadTime").toString());
-                                        commentBeanList.add(commentBean);
+                                        JSONObject comments = buffer.getJSONObject("comments");
+                                        JSONObject comment_queryInfo = comments.getJSONObject("queryInfo");
+                                        JSONArray comment_array = comments.getJSONArray("entities");
+                                        List<CommentBean> commentBeanList = new ArrayList<>();
+                                        for (int j = 0; j < comment_array.length(); j++) {
+                                            JSONObject comment = comment_array.getJSONObject(j);
+                                            CommentBean commentBean = new CommentBean(comment.get("knowledgeCommentId").toString(), comment.get("knowledgeId").toString(),
+                                                    comment.get("providerId").toString(), comment.get("userName").toString(), comment.get("content").toString(), comment.get("uploadTime").toString());
+                                            commentBeanList.add(commentBean);
+                                        }
+
+                                        JSONObject answers = buffer.getJSONObject("answers");
+                                        JSONObject answer_queryInfo = answers.getJSONObject("queryInfo");
+                                        JSONArray answer_array = answers.getJSONArray("entities");
+                                        List<AnswerBean> answerBeanList = new ArrayList<>();
+                                        for (int j = 0; j < answer_array.length(); j++) {
+                                            JSONObject answer = answer_array.getJSONObject(j);
+                                            AnswerBean answerBean = new AnswerBean(answer.get("knowledgeAnswerId").toString(), answer.get("knowledgeId").toString(), answer.get("providerId").toString(),
+                                                    answer.get("userName").toString(), answer.get("content").toString(), answer.get("uploadTime").toString());
+                                            answerBeanList.add(answerBean);
+                                        }
+
+                                        KnowledgeBean bean = new KnowledgeBean(buffer.get("knowledgeId").toString(), buffer.get("question_content").toString(),
+                                                buffer.get("answer_list").toString(), buffer.get("userid").toString(), buffer.get("interviewId").toString(), buffer.get("userName").toString(),
+                                                buffer.get("comment_list").toString(), buffer.get("company").toString(), buffer.get("tag").toString(),
+                                                buffer.get("uploadTime").toString(), (Integer) buffer.get("isLiked"), (Integer) answer_queryInfo.get("currentPage"), (Integer) answer_queryInfo.get("pageSize"),
+                                                (Integer) answer_queryInfo.get("totalRecord"), (Integer) comment_queryInfo.get("currentPage"), (Integer) comment_queryInfo.get("pageSize"),
+                                                (Integer) comment_queryInfo.get("totalRecord"));
+                                        bean.setAnswers(answerBeanList);
+                                        bean.setComments(commentBeanList);
+                                        adapter.add(bean, mData.size());
                                     }
-
-                                    JSONObject answers = buffer.getJSONObject("answers");
-                                    JSONObject answer_queryInfo = answers.getJSONObject("queryInfo");
-                                    JSONArray answer_array = answers.getJSONArray("entities");
-                                    List<AnswerBean> answerBeanList = new ArrayList<>();
-                                    for (int j = 0; j < answer_array.length(); j++) {
-                                        JSONObject answer = answer_array.getJSONObject(j);
-                                        AnswerBean answerBean = new AnswerBean(answer.get("knowledgeAnswerId").toString(), answer.get("knowledgeId").toString(), answer.get("providerId").toString(),
-                                                answer.get("userName").toString(), answer.get("content").toString(), answer.get("uploadTime").toString());
-                                        answerBeanList.add(answerBean);
+                                    if(currentPage!=1) {
+                                        recyclerView.scrollToPosition(mData.size() - 1);
                                     }
-
-                                    KnowledgeBean bean = new KnowledgeBean(buffer.get("knowledgeId").toString(), buffer.get("question_content").toString(),
-                                            buffer.get("answer_list").toString(), buffer.get("userid").toString(), buffer.get("interviewId").toString(), buffer.get("userName").toString(),
-                                            buffer.get("comment_list").toString(), buffer.get("company").toString(), buffer.get("tag").toString(),
-                                            buffer.get("uploadTime").toString(), (Integer) buffer.get("isLiked"), (Integer) answer_queryInfo.get("currentPage"), (Integer) answer_queryInfo.get("pageSize"),
-                                            (Integer) answer_queryInfo.get("totalRecord"), (Integer) comment_queryInfo.get("currentPage"), (Integer) comment_queryInfo.get("pageSize"),
-                                            (Integer) comment_queryInfo.get("totalRecord"));
-                                    bean.setAnswers(answerBeanList);
-                                    bean.setComments(commentBeanList);
-                                    adapter.add(bean, mData.size());
+                                }else{
+                                    currentPage--;
                                 }
-
-                                recyclerView.scrollToPosition(mData.size()-1);
-
                             } catch (Exception e) {
                                 Toast.makeText(context, e.toString(), Toast.LENGTH_SHORT).show();
                             }
@@ -291,7 +316,6 @@ public class KnowledgeFragment extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(context, error.toString(), Toast.LENGTH_SHORT).show();
-                dialog.dismiss();
             }
         }) {
             @Override

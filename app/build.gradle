@@ -84,4 +84,5 @@ dependencies {
     api 'com.github.rubensousa:raiflatbutton:0.1'
     api 'com.sackcentury:shinebutton:1.0.0'
     api 'cn.carbs.android:AvatarImageView:1.0.4'
+    api 'com.github.louisgeek:ClassicLinesEditView:1.0.2'
 }

@@ -79,6 +79,12 @@ public class KnowledgeAdapter extends KnowledgeBasedAdapter{
         notifyItemRemoved(position);
     }
 
+    public void removeAll(){
+        int position=mData.size();
+        mData.clear();
+        notifyItemRangeRemoved(0,position);
+    }
+
     public void add(KnowledgeBean interview, int position){
         mData.add(position,interview);
         notifyItemInserted(position);
