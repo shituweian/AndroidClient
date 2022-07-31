@@ -20,9 +20,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <com.scwang.smart.refresh.header.TwoLevelHeader
+            <com.scwang.smart.refresh.header.ClassicsHeader
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"></com.scwang.smart.refresh.header.TwoLevelHeader>
+                android:layout_height="wrap_content"></com.scwang.smart.refresh.header.ClassicsHeader>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/knowledge_recycler"
