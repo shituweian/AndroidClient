@@ -8,16 +8,39 @@
     android:orientation="vertical"
     tools:context=".ui.home.HomeFragment">
 
-    <com.scwang.smart.refresh.layout.SmartRefreshLayout
-        android:id="@+id/home_refresh"
+    <FrameLayout
+        android:id="@+id/job_framelayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:visibility="gone">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view"
+        <com.scwang.smart.refresh.layout.SmartRefreshLayout
+            android:id="@+id/job_refresh"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+            android:layout_height="match_parent">
+
+            <com.scwang.smart.refresh.header.TwoLevelHeader
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></com.scwang.smart.refresh.header.TwoLevelHeader>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/job_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+
+    </FrameLayout>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/job_loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:layout_margin="15dp"
+        android:visibility="visible"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/jobloading1" />
 
 
 </RelativeLayout>

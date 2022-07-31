@@ -157,8 +157,7 @@ public class activity_interview_collection extends Activity {
                             Toast.makeText(activity_interview_collection.this, code, Toast.LENGTH_SHORT).show();
                             if (code.equals("00")) {
                                 JSONObject data = (JSONObject) response.get("data");
-                                JSONObject entities=(JSONObject) data.get("entities");
-                                JSONObject entities2 = (JSONObject) entities.get("interviews");
+                                JSONObject entities2 = (JSONObject) data.get("interviews");
                                 JSONArray array = (JSONArray) entities2.get("entities");
                                 Toast.makeText(activity_interview_collection.this, String.valueOf(array.length()), Toast.LENGTH_SHORT).show();
 

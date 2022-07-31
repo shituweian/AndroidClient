@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.informations.InformationFragment">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,15 +38,16 @@
             android:layout_marginBottom="10dp"
             android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/touxiang"
-                android:layout_width="75dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+            <cn.carbs.android.avatarimageview.library.AvatarImageView
+                android:id="@+id/information_touxiang"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:padding="1dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginBottom="10dp"
-                android:src="@drawable/ic_launcher_foreground" />
+                android:layout_marginLeft="35dp"
+                app:aiv_BoarderWidth="2dp"
+                app:aiv_ShowBoarder="true"
+                app:aiv_TextSizeRatio="0.4" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -367,7 +374,7 @@
 
     </androidx.cardview.widget.CardView>
 
-    <RelativeLayout
+    <!--RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="25dp"
@@ -413,9 +420,81 @@
             android:visibility="gone" />
 
 
-    </RelativeLayout>
+    </RelativeLayout-->
+
+
 
     </LinearLayout>
 
+    </androidx.core.widget.NestedScrollView>
 
-</androidx.core.widget.NestedScrollView>
+    <jahirfiquitiva.libs.fabsmenu.FABsMenuLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        fab:fabs_menu_overlayColor="#4d000000"
+        fab:fabs_menu_clickableOverlay="true"
+        tools:layout_behavior="@string/fabs_menu_layout_behavior">
+
+    <!-- FABs Menu is the main view. It will contain all the items FABs and it create the menu fab itself -->
+    <jahirfiquitiva.libs.fabsmenu.FABsMenu
+        android:id="@+id/fabs_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:clipChildren="false"
+        fab:fab_menuMargins="16dp"
+        fab:fab_moreButtonPlusIcon="@drawable/ic_baseline_add_24"
+        fab:fab_moreButtonBackgroundColor="@color/web_blue"
+        fab:fab_moreButtonRippleColor="@color/white_blue"
+        fab:fab_moreButtonSize="normal"
+        fab:fab_labelsPosition="left"
+        fab:fab_expandDirection="up">
+
+        <jahirfiquitiva.libs.fabsmenu.TitleFAB
+            android:id="@+id/information_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:srcCompat="@drawable/ic_person"
+            fab:fab_title="CHANGE ACCOUNT"
+            fab:fabSize="mini"
+            fab:backgroundTint="@color/web_blue"
+            fab:rippleColor="@color/white"/>
+
+        <jahirfiquitiva.libs.fabsmenu.TitleFAB
+            android:id="@+id/information_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:srcCompat="@drawable/ic_baseline_assignment_24"
+            fab:fab_title="CHANGE PROFILE"
+            fab:fabSize="mini"
+            fab:backgroundTint="@color/web_blue"
+            fab:rippleColor="@color/white_blue"/>
+
+
+
+        <!-- This item will appear just above the menu FAB -->
+        <jahirfiquitiva.libs.fabsmenu.TitleFAB
+            android:id="@+id/information_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:srcCompat="@drawable/ic_baseline_account_circle_24"
+            fab:fab_title="REGISTER"
+            fab:fabSize="mini"
+            fab:backgroundTint="@color/web_blue"
+            fab:rippleColor="@color/white_blue"/>
+
+        <jahirfiquitiva.libs.fabsmenu.TitleFAB
+            android:id="@+id/information_alumni"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:srcCompat="@drawable/ic_baseline_people_24"
+            fab:fab_title="ALUMNI"
+            fab:fabSize="mini"
+            fab:backgroundTint="@color/web_blue"
+            fab:rippleColor="@color/white_blue"/>
+
+    </jahirfiquitiva.libs.fabsmenu.FABsMenu>
+    </jahirfiquitiva.libs.fabsmenu.FABsMenuLayout>
+
+
+</RelativeLayout>

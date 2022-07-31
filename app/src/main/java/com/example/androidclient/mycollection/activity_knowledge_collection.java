@@ -157,8 +157,7 @@ public class activity_knowledge_collection extends Activity {
 
                             if (code.equals("00")) {
                                 JSONObject data = (JSONObject) response.get("data");
-                                JSONObject entities = (JSONObject) data.get("entities");
-                                JSONObject entities2=(JSONObject)entities.get("knowledge");
+                                JSONObject entities2=(JSONObject)data.get("questions");
                                 JSONArray array = (JSONArray) entities2.get("entities");
                                 Toast.makeText(activity_knowledge_collection.this, String.valueOf(array.length()), Toast.LENGTH_SHORT).show();
 

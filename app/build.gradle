@@ -38,6 +38,7 @@ android {
                             'src/main/res/layout/knowledge',
                             'src/main/res/layout/interview',
                             'src/main/res/layout/collection_post',
+                            'src/main/res/layout/job',
                             'src/main/res/layout/test',
                             'src/main/res'
                     ]
@@ -85,4 +86,7 @@ dependencies {
     api 'com.sackcentury:shinebutton:1.0.0'
     api 'cn.carbs.android:AvatarImageView:1.0.4'
     api 'com.github.louisgeek:ClassicLinesEditView:1.0.2'
+    api 'com.vstechlab.easyfonts:easyfonts:1.0.0'
+    api 'me.jahirfiquitiva:FABsMenu:1.1.4'
+    api 'com.github.arcadefire:nice-spinner:1.4.4'
 }

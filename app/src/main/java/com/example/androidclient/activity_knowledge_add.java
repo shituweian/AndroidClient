@@ -56,7 +56,7 @@ public class activity_knowledge_add extends Activity {
         tag = findViewById(R.id.knowledge_add_tag_extend);
         upload = findViewById(R.id.knowledge_add_upload);
         md=findViewById(R.id.knowledge_add_md);
-        md.loadMarkdown("**<center>here will display markdown text</center>**\n\n**_<center>enter the context at the bottom edittext</center>_**\n\n**<center>then" +
+        md.loadMarkdown("**<center>Here will display markdown text</center>**\n\n**_<center>Enter the context at the bottom edittext</center>_**\n\n**<center>Then" +
                 " click <font color=#1976D2> REFRESH button </font> to see</center>**");
         content =findViewById(R.id.knowledge_add_content);
         refresh=findViewById(R.id.knowledge_add_refresh);

@@ -38,6 +38,9 @@
         <activity android:name=".mycollection.activity_knowledge_collection"/>
         <activity android:name=".mypost.activity_post_interview"/>
         <activity android:name=".mypost.activity_post_knowledge"/>
+        <activity android:name=".activity_job"/>
+        <activity android:name=".activity_knowledge_search"/>
+        <activity android:name=".activity_alumni"/>
     </application>
 
 </manifest>

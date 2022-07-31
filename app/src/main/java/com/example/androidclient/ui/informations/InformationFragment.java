@@ -22,8 +22,11 @@ import com.android.volley.toolbox.Volley;
 import com.example.androidclient.Bean.InterviewBean;
 import com.example.androidclient.Bean.KnowledgeBean;
 import com.example.androidclient.R;
+import com.example.androidclient.activity_alumni;
+import com.example.androidclient.activity_knowledge_search;
 import com.example.androidclient.activity_login_in;
 import com.example.androidclient.activity_profile_changing;
+import com.example.androidclient.activity_register;
 import com.example.androidclient.applicationContent.userProfile;
 import com.example.androidclient.databinding.FragmentInformationBinding;
 import com.example.androidclient.mycollection.activity_interview_collection;
@@ -35,11 +38,15 @@ import com.example.androidclient.test;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.carbs.android.avatarimageview.library.AvatarImageView;
+import jahirfiquitiva.libs.fabsmenu.TitleFAB;
+
 public class InformationFragment extends Fragment {
 
-    private Button register;
-    private Button edit;
-    private Button log_in;
+    private TitleFAB register;
+    private TitleFAB edit;
+    private TitleFAB log_in;
+    private TitleFAB alumni;
     private Button login_out;
     private LottieAnimationView knowledge_collection;
     private LottieAnimationView interview_collection;
@@ -54,6 +61,7 @@ public class InformationFragment extends Fragment {
     private TextView date_text;
     private TextView company_text;
     private TextView YoE_text;
+    private AvatarImageView avatar;
 
     private List<InterviewBean> interviewBeans;
     private List<KnowledgeBean> knowledgeBeans;
@@ -78,9 +86,10 @@ public class InformationFragment extends Fragment {
         profile = (userProfile) this.getContext().getApplicationContext();
         requestQueue = Volley.newRequestQueue(this.getContext());
 
-        register = (Button) root.findViewById(R.id.register);
-        edit = (Button) root.findViewById(R.id.edit);
-        log_in = (Button) root.findViewById(R.id.login_in);
+        register = root.findViewById(R.id.information_register);
+        edit = root.findViewById(R.id.information_profile);
+        log_in = root.findViewById(R.id.information_switch);
+        alumni = root.findViewById(R.id.information_alumni);
 
         email_text = root.findViewById(R.id.information_email);
         username_text = root.findViewById(R.id.information_username);
@@ -88,12 +97,27 @@ public class InformationFragment extends Fragment {
         company_text = root.findViewById(R.id.information_company);
         YoE_text = root.findViewById(R.id.information_YoE);
         date_text = root.findViewById(R.id.information_date);
-        login_out = root.findViewById(R.id.login_out);
         knowledge_collection = root.findViewById(R.id.information_collection);
         interview_collection = root.findViewById(R.id.information_collection_knowledge);
         my_post_interview = root.findViewById(R.id.information_my_post_interview);
-        my_post_knowledge=root.findViewById(R.id.information_my_post_knowledge);
+        my_post_knowledge = root.findViewById(R.id.information_my_post_knowledge);
+        avatar=root.findViewById(R.id.information_touxiang);
+        avatar.setTextAndColorSeed("GAO","GAO");
         context = this.getContext();
+
+        /*email_text.setText(profile.getEmail());
+        username_text.setText(profile.getUsername());
+        school_text.setText(profile.getSchool());
+        company_text.setText(profile.getCompany());
+        date_text.setText(profile.getDate());*/
+
+        email_text.setText("123@qq.com");
+        username_text.setText("Ace Coder");
+        school_text.setText("Hong Kong University");
+        company_text.setText("Tencent");
+        date_text.setText("2022-09-01");
+        YoE_text.setText("");
+
 
         interviewBeans = new ArrayList<>();
         knowledgeBeans = new ArrayList<>();
@@ -142,7 +166,7 @@ public class InformationFragment extends Fragment {
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), test.class);
+                Intent intent = new Intent(getActivity(), activity_register.class);
 
                 startActivity(intent);
             }
@@ -158,14 +182,15 @@ public class InformationFragment extends Fragment {
             }
         });
 
-        login_out.setOnClickListener(new View.OnClickListener() {
+        alumni.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                login_out.setVisibility(View.GONE);
-                log_in.setVisibility(View.VISIBLE);
-                register.setVisibility(View.VISIBLE);
+                Intent intent = new Intent(getActivity(), activity_alumni.class);
+
+                startActivity(intent);
             }
         });
+
 
         mRefreshBroadcastReceiver = new BroadcastReceiver() {
             @Override

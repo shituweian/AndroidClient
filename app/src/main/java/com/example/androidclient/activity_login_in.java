@@ -88,7 +88,13 @@ public class activity_login_in extends Activity {
                             login.playAnimation();
                             try {
                                 profile.setToken(response.get("token").toString());
-                                profile.setEmail(email.getText().toString());
+                                /*JSONObject data=(JSONObject) response.get("data");
+                                profile.setEmail(data.get("email").toString());
+                                profile.setUsername(data.get("name").toString());
+                                profile.setSchool(data.get("school").toString());
+                                profile.setDate(data.get("date").toString());
+                                profile.setCompany(data.get("company").toString());
+                                profile.setType(data.get("type").toString());
                                 /*profile.setEmail(data.get("email").toString());
                                 profile.setUsername(data.get("name").toString());
                                 profile.setCompany(data.get("company").toString());

@@ -35,6 +35,7 @@ import com.example.androidclient.Bean.KnowledgeBean;
 import com.example.androidclient.R;
 import com.example.androidclient.activity_knowledge;
 import com.example.androidclient.activity_knowledge_add;
+import com.example.androidclient.activity_knowledge_search;
 import com.example.androidclient.activity_login_in;
 import com.example.androidclient.activity_register;
 import com.example.androidclient.adapter.KnowledgeAdapter;
@@ -65,6 +66,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import jahirfiquitiva.libs.fabsmenu.FABsMenuLayout;
+import jahirfiquitiva.libs.fabsmenu.TitleFAB;
 import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter;
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 import jp.wasabeef.recyclerview.animators.LandingAnimator;
@@ -88,7 +91,11 @@ public class KnowledgeFragment extends Fragment {
 
     private int currentPage=1;
 
-    private FloatingActionButton add;
+    private TitleFAB add;
+
+    private TitleFAB search;
+
+    private FABsMenuLayout fab_layout;
 
     private FrameLayout frameLayout;
 
@@ -121,14 +128,25 @@ public class KnowledgeFragment extends Fragment {
 
         profile=(userProfile)this.getActivity().getApplicationContext();
 
-        Toast.makeText(getContext(), profile.getEmail(), Toast.LENGTH_SHORT).show();
+        add=root.findViewById(R.id.knowledge_floatingButton_add);
 
-        add=root.findViewById(R.id.knowledge_floatingButton);
+        search=root.findViewById(R.id.knowledge_floatingButton_search);
+
+        fab_layout=root.findViewById(R.id.knowledge_fab_layout);
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), activity_knowledge_add.class);
+
+                startActivity(intent);
+            }
+        });
+
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), activity_knowledge_search.class);
 
                 startActivity(intent);
             }
@@ -146,7 +164,7 @@ public class KnowledgeFragment extends Fragment {
             public void run() {
 
                 frameLayout.setVisibility(View.VISIBLE);
-                add.setVisibility(View.VISIBLE);
+                fab_layout.setVisibility(View.VISIBLE);
                 loading.setVisibility(View.GONE);
             }
         }, 2000);

@@ -220,7 +220,7 @@ public class InterviewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 level.setText(interviewBean.getLevel());
             }
             else{
-                level.setText("Pass");
+                level.setText("");
                 level.setTextColor(Color.parseColor("#00CC33"));
             }
             isLiked = interviewBean.getIsliked();

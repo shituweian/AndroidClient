@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="3dp"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackgroundBorderless"
+    app:cardCornerRadius="3dp"
+    app:cardElevation="3dp"
+    app:cardUseCompatPadding="true"
+    app:contentPaddingLeft="3dp"
+    app:contentPaddingRight="3dp"
+    app:rippleColor="@color/teal_700"
+    app:strokeColor="@color/waited_gray"
+    app:strokeWidth="0dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="15dp"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <cn.carbs.android.avatarimageview.library.AvatarImageView
+                    android:id="@+id/alumni_avatar"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:padding="1dp"
+                    app:aiv_BoarderWidth="2dp"
+                    app:aiv_ShowBoarder="true"
+                    app:aiv_TextSizeRatio="0.4" />
+
+        <TextView
+            android:id="@+id/alumni_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="username"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:textSize="24sp"
+            android:textColor="@color/web_blue"/>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="15dp"
+            >
+            <TextView
+                android:id="@+id/alumni_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="email"
+                android:layout_centerInParent="true"
+                android:textSize="24sp"
+                android:textColor="@color/web_blue"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="15dp"
+            >
+            <TextView
+                android:id="@+id/alumni_school"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="email"
+                android:layout_centerInParent="true"
+                android:textSize="30sp"
+                android:textColor="@color/web_blue"/>
+
+        </RelativeLayout>
+
+
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>
