@@ -21,6 +21,7 @@ import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.androidclient.applicationContent.userProfile;
 import com.example.androidclient.ui.informations.InformationFragment;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -43,6 +44,8 @@ public class activity_login_in extends Activity {
     private LottieAnimationView atom;
     private LottieAnimationView login;
 
+    private FloatingActionButton fab;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +56,7 @@ public class activity_login_in extends Activity {
         email_text = findViewById(R.id.information_email);
         username_text = findViewById(R.id.information_username);
         atom=findViewById(R.id.lottieAnimationView);
+        fab=findViewById(R.id.login_in_register);
         //atom.setRepeatCount(-1);
         //atom.playAnimation();
         requestQueue = Volley.newRequestQueue(this);
@@ -61,6 +65,13 @@ public class activity_login_in extends Activity {
             @Override
             public void onClick(View view) {
                 volleyPost(login);
+            }
+        });
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(activity_login_in.this, activity_register.class);
+                startActivity(intent);
             }
         });
     }
