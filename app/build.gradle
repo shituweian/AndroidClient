@@ -89,4 +89,5 @@ dependencies {
     api 'com.vstechlab.easyfonts:easyfonts:1.0.0'
     api 'me.jahirfiquitiva:FABsMenu:1.1.4'
     api 'com.github.arcadefire:nice-spinner:1.4.4'
+    api 'com.white.countdownbutton:countdownbtn:1.0.4'
 }

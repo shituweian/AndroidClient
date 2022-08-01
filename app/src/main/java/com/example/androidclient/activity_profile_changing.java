@@ -112,8 +112,8 @@ public class activity_profile_changing extends Activity {
             @Override
             public void onClick(View view) {
                 student_l.setVisibility(View.GONE);
-                employee_l.setVisibility(View.GONE);
-                HR_l.setVisibility(View.VISIBLE);
+                employee_l.setVisibility(View.VISIBLE);
+                HR_l.setVisibility(View.GONE);
             }
         });
 
@@ -149,7 +149,7 @@ public class activity_profile_changing extends Activity {
             map.put("month",Month);
             map.put("company",company.getText().toString());
             map.put("YoE",YoE.getText().toString());
-        }else if(HR_l.getVisibility()==View.VISIBLE){
+        }/*else if(HR_l.getVisibility()==View.VISIBLE){
             map.put("email", email.getText().toString());
             map.put("username", username.getText().toString());
             map.put("identity", "student");
@@ -158,7 +158,7 @@ public class activity_profile_changing extends Activity {
             map.put("month",Month);
             map.put("company",null);
             map.put("YoE",null);
-        }
+        }*/
 
 
         JSONObject jsonObject = new JSONObject(map);

@@ -42,9 +42,7 @@ public class activity_register extends Activity {
 
     private verifyCodeButton code_button;
 
-    private Button check_code;
-
-    private boolean email_ver;
+    private boolean send=false;
 
     private int verify_state=-1;
 
@@ -72,8 +70,6 @@ public class activity_register extends Activity {
 
         verification = findViewById(R.id.register_verification_extend);
 
-        check_code = findViewById(R.id.code);
-
         requestQueue = Volley.newRequestQueue(this);
 
         confirm.setOnClickListener(new View.OnClickListener() {
@@ -82,13 +78,13 @@ public class activity_register extends Activity {
 
                 String pw = password.getText().toString();
                 String pw_confirm = password_confirm.getText().toString();
-                if (pw.equals(pw_confirm)) {
+                if (pw.equals(pw_confirm)&&send==true) {
                     volleyGet(confirm);
-                    if(verify_state==1) {
-                        volleyPost(confirm);
-                    }
-                } else {
+                } else if(!pw.equals(pw_confirm)) {
                     Toast.makeText(activity_register.this, "two times password not equal", Toast.LENGTH_SHORT).show();
+                    password_confirm.setText("");
+                }else{
+                    Toast.makeText(activity_register.this, "please send verification code first", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -96,15 +92,12 @@ public class activity_register extends Activity {
         code_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                code_button.waited();
-                volleyPost_code(check_code);
-            }
-        });
-
-        check_code.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                volleyGet(check_code);
+                if(!email.getText().toString().equals("")) {
+                    code_button.waited();
+                    volleyPost_code(code_button);
+                }else{
+                    Toast.makeText(activity_register.this, "please enter email", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -189,6 +182,7 @@ public class activity_register extends Activity {
                         if (code.equals("00")) {
                             Toast.makeText(activity_register.this, "success", Toast.LENGTH_SHORT).show();
                             code_button.start();
+                            send=true;
                         } else if (code.equals("04")) {
                             Toast.makeText(activity_register.this, "please check email address", Toast.LENGTH_SHORT).show();
                         }
@@ -232,7 +226,7 @@ public class activity_register extends Activity {
                         if (code.equals("00")) {
                             Toast.makeText(activity_register.this, "get code", Toast.LENGTH_SHORT).show();
                             verify_state=1;
-                            finish();
+                            volleyPost(v);
                         } else if (code.equals("07")) {
                             Toast.makeText(activity_register.this, "not matched", Toast.LENGTH_SHORT).show();
                         }

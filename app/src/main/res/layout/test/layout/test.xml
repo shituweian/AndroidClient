@@ -1,15 +1,21 @@
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fab="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <!-- Menu Layout is needed for the overlay to work -->
-    <org.angmarch.views.NiceSpinner
-        android:id="@+id/nice_spinner"
+    <com.white.countdownbutton.CountDownButton
+        android:id="@+id/test_cdb"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"/>
+        android:text="get verifyCode"
+        app:countDown="60000"
+        app:countDownFormat="Please wait (%ds)"
+        app:countDownInterval="1000"
+        app:enableCountDown="true"
+        app:cdFinishText="重新获取验证码"
+        />
 
 </RelativeLayout>

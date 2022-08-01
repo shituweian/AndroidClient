@@ -158,7 +158,7 @@ public class InformationFragment extends Fragment {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), activity_profile_changing.class);
+                Intent intent = new Intent(getActivity(), activity_register.class);
                 startActivity(intent);
             }
         });
@@ -166,7 +166,7 @@ public class InformationFragment extends Fragment {
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), activity_register.class);
+                Intent intent = new Intent(getActivity(), activity_profile_changing.class);
 
                 startActivity(intent);
             }

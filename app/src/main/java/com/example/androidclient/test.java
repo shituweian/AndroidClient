@@ -18,6 +18,7 @@ import com.airbnb.lottie.animation.content.Content;
 import com.classichu.lineseditview.LinesEditView;
 import com.sackcentury.shinebuttonlib.ShineButton;
 import com.vstechlab.easyfonts.EasyFonts;
+import com.white.countdownbutton.CountDownButton;
 
 import org.angmarch.views.NiceSpinner;
 
@@ -32,13 +33,20 @@ import cn.carbs.android.avatarimageview.library.AvatarImageView;
 
 public class test extends Activity {
 
+    private CountDownButton mCountDownButton;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.test);
-        NiceSpinner niceSpinner = (NiceSpinner) findViewById(R.id.nice_spinner);
-        List<String> dataset = new LinkedList<>(Arrays.asList("One", "Two", "Three", "Four", "Five"));
-        niceSpinner.attachDataSource(dataset);
+        mCountDownButton = (CountDownButton) findViewById(R.id.test_cdb);
+// 设置点击事件
+        mCountDownButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 点击按钮要执行的操作,同时开始倒计时
+                Toast.makeText(test.this, "click countdown button", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 }
